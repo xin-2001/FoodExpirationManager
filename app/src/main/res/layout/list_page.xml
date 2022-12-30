@@ -4,22 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".listPageActivity"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="#FFF4E2">
-
-
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:background="#86A69D">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_gravity="left"
-            android:gravity="center_vertical">
+            android:layout_gravity="left">
 
             <Button
                 android:id="@+id/home_Botton"
@@ -27,8 +24,10 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="0dp"
                 android:background="@drawable/list_pic2" />
+
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -36,9 +35,11 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <!--
-        這裡要放七天內的卡片，以及顯示名稱
+        如果是從選單>總攬 過來 ->select *
+        如果是從搜尋過來 ->select
         用list的Activity
         -->
+
 
     </LinearLayout>
     <LinearLayout
@@ -50,11 +51,10 @@
         android:layout_marginBottom="15dp">
         <Button
             android:id="@+id/addfood_Botton"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/insertdatabuttonicon"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="center_vertical"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="@android:drawable/ic_menu_add"
+            android:layout_marginRight="10dp"/>
 
     </LinearLayout>
 
