@@ -19,7 +19,7 @@
             android:layout_gravity="left">
 
             <Button
-                android:id="@+id/home_Botton"
+                android:id="@+id/menu_Button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="0dp"
@@ -50,7 +50,7 @@
         android:gravity="right"
         android:layout_marginBottom="15dp">
         <Button
-            android:id="@+id/addfood_Botton"
+            android:id="@+id/addfood_Button"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:background="@android:drawable/ic_menu_add"

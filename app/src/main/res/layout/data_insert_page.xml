@@ -19,7 +19,7 @@
             android:layout_gravity="left">
 
             <Button
-                android:id="@+id/home_Botton"
+                android:id="@+id/menu_Button"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="0dp"
