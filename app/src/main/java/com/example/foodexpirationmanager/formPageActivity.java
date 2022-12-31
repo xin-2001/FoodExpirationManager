@@ -83,5 +83,10 @@ public class formPageActivity extends Activity {
 
             }
         });
+
+    }
+    //重寫onBackPressed，禁止手機內建上一頁功能
+    public void onBackPressed(){
+
     }
 }
