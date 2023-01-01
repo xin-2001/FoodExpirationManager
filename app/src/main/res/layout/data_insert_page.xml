@@ -115,7 +115,8 @@
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="飲料"/>
+                                android:text="飲料"
+                                android:checked="true"/>
                             <RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"

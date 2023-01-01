@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class searchPageActivity extends Activity {
     private Button menuButton;
@@ -47,7 +49,8 @@ public class searchPageActivity extends Activity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast toast=Toast.makeText(getApplicationContext(),"您已在'搜尋'頁面",Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
         formButton.setOnClickListener(new View.OnClickListener() {

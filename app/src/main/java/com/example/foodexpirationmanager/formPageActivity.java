@@ -6,8 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class formPageActivity extends Activity {
 
@@ -18,6 +21,13 @@ public class formPageActivity extends Activity {
     private TextView totalButton;
     private TextView searchButton;
     private TextView formButton;
+    private Button sentButton;
+    private EditText userNameEditText;
+    private EditText userEmailEditText;
+    private RadioButton questionRadioButton;
+    private RadioButton suggestionRadioButton;
+    private EditText userQusContentEditText;
+    private TextView errorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +40,13 @@ public class formPageActivity extends Activity {
         totalButton=findViewById(R.id.total_Button);
         searchButton=findViewById(R.id.search_Button);
         formButton=findViewById(R.id.form_Button);
+        sentButton=findViewById(R.id.sent_Button);
+        userNameEditText=findViewById(R.id.userNameEditText);
+        userEmailEditText=findViewById(R.id.userEmailEditText);
+        questionRadioButton=findViewById(R.id.questionRadioButton);
+        suggestionRadioButton=findViewById(R.id.suggestionRadioButton);
+        userQusContentEditText=findViewById(R.id.userQusContentEditText);
+        errorTextView=findViewById(R.id.errorTextView);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +72,8 @@ public class formPageActivity extends Activity {
         formButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast toast=Toast.makeText(getApplicationContext(),"您已在'意見反映'頁面",Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
 
@@ -83,6 +101,35 @@ public class formPageActivity extends Activity {
 
             }
         });
+
+        //點擊送出按鈕時，檢查資料是否填寫
+        sentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!userNameEditText.getText().toString().isEmpty() && !userEmailEditText.getText().toString().isEmpty() && !userQusContentEditText.getText().toString().isEmpty()){
+                    errorTextView.setText("已將您的提問送出");
+                    //送出提問/建議資訊
+
+                    userNameEditText.setText("");
+                    userEmailEditText.setText("");
+                    userQusContentEditText.setText("");
+                    questionRadioButton.setChecked(true);
+
+                }else{
+                    errorTextView.setText("請輸入");
+                    if(userNameEditText.getText().toString().isEmpty()){
+                        errorTextView.append("'暱稱' ");
+                    }
+                    if(userEmailEditText.getText().toString().isEmpty()){
+                        errorTextView.append("'信箱' ");
+                    }
+                    if(userQusContentEditText.getText().toString().isEmpty()){
+                        errorTextView.append("'反映內容'");
+                    }
+                }
+            }
+        });
+
 
     }
     //重寫onBackPressed，禁止手機內建上一頁功能

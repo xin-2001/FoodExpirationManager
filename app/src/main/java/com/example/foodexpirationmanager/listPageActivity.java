@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class listPageActivity extends Activity {
     private Button menuButton;
@@ -42,7 +43,8 @@ public class listPageActivity extends Activity {
         totalButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast toast=Toast.makeText(getApplicationContext(),"您已在'總覽'頁面",Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {

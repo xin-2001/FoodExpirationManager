@@ -103,9 +103,11 @@
                         android:text="暱稱："
                         android:textSize="50px"/>
                     <EditText
+                        android:id="@+id/userNameEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="怎麼稱呼？"/>
+
 
                 </LinearLayout>
                 <LinearLayout
@@ -119,6 +121,7 @@
                         android:text="信箱："
                         android:textSize="50px"/>
                     <EditText
+                        android:id="@+id/userEmailEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="怎麼聯絡您？"/>
@@ -140,11 +143,14 @@
                         android:orientation="horizontal"
                         android:gravity="left">
                         <RadioButton
+                            android:id="@+id/questionRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="提問"
-                            android:textSize="50px"/>
+                            android:textSize="50px"
+                            android:checked="true"/>
                         <RadioButton
+                            android:id="@+id/suggestionRadioButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="建議"
@@ -163,6 +169,7 @@
                         android:text="反映內容："
                         android:textSize="50px"/>
                     <EditText
+                        android:id="@+id/userQusContentEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="請輸入..."
@@ -172,12 +179,20 @@
 
             </LinearLayout>
             <Button
+                android:id="@+id/sent_Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="送出"
                 android:textSize="50px"
                 android:layout_marginTop="10dp"/>
-
+            <TextView
+                android:id="@+id/errorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000"
+                android:text=""
+                android:textSize="50px"
+                android:layout_marginTop="10dp"/>
 
 
         </LinearLayout>

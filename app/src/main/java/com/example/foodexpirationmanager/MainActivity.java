@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -36,7 +37,8 @@ public class MainActivity extends Activity {
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Toast toast=Toast.makeText(getApplicationContext(),"您已在'主頁'頁面",Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
         totalButton.setOnClickListener(new View.OnClickListener() {
