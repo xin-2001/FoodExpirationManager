@@ -102,51 +102,62 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="類別："
+                        android:text="*類別："
                         android:textSize="50px"
                         android:layout_marginTop="3dp"/>
-                    <RadioGroup
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="飲料"
-                                android:checked="true"/>
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="點心"/>
-                            <RadioButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="生鮮"/>
-                        </LinearLayout>
-                        <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="left">
+                        <RadioGroup
+                            android:id="@+id/sort1_RadioGroup"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="left">
                             <RadioButton
+                                android:id="@+id/drink_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="飲料"
+                                android:checked="true"/>
+                            <RadioButton
+                                android:id="@+id/dessert_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="點心"/>
+                            <RadioButton
+                                android:id="@+id/fresh_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="生鮮"/>
+
+                        </RadioGroup>
+                        <RadioGroup
+                            android:id="@+id/sort2_RadioGroup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="left">
+                            <RadioButton
+                                android:id="@+id/food_RadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="熟食"/>
                             <RadioButton
+                                android:id="@+id/sauce_RadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="乾糧"/>
+                                android:text="醬料"/>
                             <RadioButton
+                                android:id="@+id/other_RadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="其他"/>
 
-                        </LinearLayout>
-
-                    </RadioGroup>
+                        </RadioGroup>
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -156,7 +167,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="名稱："
+                        android:text="*名稱："
                         android:textSize="50px"/>
                     <EditText
                         android:id="@+id/itemname_EditText"
@@ -172,7 +183,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="標籤："
+                        android:text="  標籤："
                         android:textSize="50px"/>
                     <EditText
                         android:id="@+id/tagname_EditText"
@@ -188,51 +199,70 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="數量："
+                        android:text="*數量："
                         android:textSize="50px"/>
+                    <TextView
+                        android:id="@+id/quantity_sub_TextView"
+                        android:layout_width="30dp"
+                        android:layout_height="35dp"
+                        android:text="-"
+                        android:textSize="50px"
+                        android:background="#EFE3C0"
+                        android:gravity="center"/>
                     <EditText
                         android:id="@+id/quantity_EditText"
-                        android:layout_width="match_parent"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:ems="3"
-                        android:inputType="numberDecimal"
-                        android:hint="請輸入購買數量"/>
+                        android:text="1"
+                        android:inputType="number"
+                        android:gravity="center"/>
+                    <TextView
+                        android:id="@+id/quantity_add_TextView"
+                        android:layout_width="30dp"
+                        android:layout_height="35dp"
+                        android:text="+"
+                        android:textSize="50px"
+                        android:background="#EFE3C0"
+                        android:gravity="center"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:orientation="horizontal"
-                    android:gravity="left">
+                    android:gravity="center_vertical">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="購買日期："
+                        android:text="  購買日期："
                         android:textSize="50px"/>
-                    <EditText
-                        android:id="@+id/shopdate_EditText"
+                    <TextView
+                        android:id="@+id/shopdate_TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="date"
-                        android:hint="YYYY/MM/DD"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="left">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="有效日期："
+                        android:hint="選擇日期"
+                        android:textColorHint="#FF0000"
+                        android:textColor="#0000FF"
                         android:textSize="50px"/>
-                    <EditText
-                        android:id="@+id/effectivedate_EditText"
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="*有效日期："
+                        android:textSize="50px"
+                        android:maxLength="10"/>
+                    <TextView
+                        android:id="@+id/effectivedate_TextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="date"
-                        android:hint="YYYY/MM/DD"/>
+                        android:hint="選擇日期"
+                        android:textColorHint="#FF0000"
+                        android:textColor="#0000FF"
+                        android:textSize="50px"/>
                 </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -242,7 +272,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="備註："
+                        android:text="  備註："
                         android:textSize="50px"/>
                     <EditText
                         android:id="@+id/note_EditText"
@@ -250,6 +280,13 @@
                         android:layout_height="wrap_content"
                         android:hint="p.s"/>
                 </LinearLayout>
+                <TextView
+                    android:id="@+id/star_error_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   *星號為必填項目"
+                    android:layout_marginTop="7dp"
+                    android:textColor="#AAAAAA"/>
 
 
             </LinearLayout>
@@ -261,6 +298,7 @@
                 android:layout_marginTop="10dp">
 
                 <Button
+                    android:id="@+id/sent_Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -268,6 +306,7 @@
                     android:textSize="50px"
                     android:background="#F2B263"/>
                 <Button
+                    android:id="@+id/cancel_Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="取消"
