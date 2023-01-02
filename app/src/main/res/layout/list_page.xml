@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="#FFF4E2">
-    <android.support.v7.widget.Toolbar
+    <android.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#86A69D">
@@ -26,7 +26,7 @@
                 android:background="@drawable/list_pic2" />
 
         </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+    </android.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
