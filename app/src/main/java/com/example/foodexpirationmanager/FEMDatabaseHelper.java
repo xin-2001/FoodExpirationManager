@@ -2,6 +2,7 @@ package com.example.foodexpirationmanager;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
@@ -73,4 +74,20 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
             Toast.makeText(context,"Added!YES!",Toast.LENGTH_SHORT).show();
         }
     }
+
+    Cursor selectDATA(){
+        //SQL1 select出所有未被封存的food且以有效日期由小到大排序
+        String SQL1 = "SELECT * FROM " + TABLE_NAME
+                + " WHERE archived = 0 "
+                + " ORDER BY " + COLUMN_expiration + " ASC" ;
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+
+        if(db!=null){
+            cursor = db.rawQuery(SQL1,null);
+        }
+        return cursor;
+    }
+
 }

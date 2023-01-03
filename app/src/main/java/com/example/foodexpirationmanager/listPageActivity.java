@@ -2,6 +2,7 @@ package com.example.foodexpirationmanager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.Toolbar;
@@ -30,8 +31,13 @@ public class listPageActivity extends Activity {
     private TextView totalButton;
     private TextView searchButton;
     private TextView formButton;
-    private RecyclerView totalRecyclerView;
-    private TotalListAdapter totalListAdapter;
+    private RecyclerView recyclerView;
+    //private TotalListAdapter totalListAdapter;
+    FEMDatabaseHelper DB;
+    // array test
+    ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+    GoodAdapter goodAdapter;
+    // array test
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
 
     @Override
@@ -46,17 +52,37 @@ public class listPageActivity extends Activity {
         totalButton=findViewById(R.id.total_Button);
         searchButton=findViewById(R.id.search_Button);
         formButton=findViewById(R.id.form_Button);
+        recyclerView = findViewById(R.id.list_recycleview);
 
+        // DATABASE;
+        DB = new FEMDatabaseHelper(listPageActivity.this);
+        ID = new ArrayList<>();
+        objType= new ArrayList<>();
+        name= new ArrayList<>();
+        tag= new ArrayList<>();
+        buyDate= new ArrayList<>();
+        expiration= new ArrayList<>();
+        num= new ArrayList<>();
+        ps= new ArrayList<>();
+        archived= new ArrayList<>();
 
+        //makeData();
+        //儲存data到array等拿出來用
+        storeDataToArrays();
+        //啟用goodadapter去拿取
+        goodAdapter = new GoodAdapter(listPageActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived);
+        recyclerView.setAdapter(goodAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(listPageActivity.this));
 
-        makeData();
-        //設置RecycleView
+        //設置RecyclerView_舊
+        /*
         totalRecyclerView = findViewById(R.id.list_recycleview);
         totalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         totalRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         totalListAdapter = new TotalListAdapter();
         totalRecyclerView.setAdapter(totalListAdapter);
-
+        */
+        //設置RecyclerView_舊
         //目錄頁
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +148,27 @@ public class listPageActivity extends Activity {
 
 
 
+
+
+    }
+    void storeDataToArrays(){
+        Cursor cursor = DB.selectDATA();
+        if (cursor.getCount() == 0){
+            Toast.makeText(this,"Failed>:(",Toast.LENGTH_SHORT).show();
+        }else{
+            //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+            while(cursor.moveToNext()){
+                ID.add(cursor.getString(0));
+                objType.add(cursor.getString(1));
+                name.add(cursor.getString(2));
+                tag.add(cursor.getString(3));
+                buyDate.add(cursor.getString(4));
+                expiration.add(cursor.getString(5));
+                num.add(cursor.getString(6));
+                ps.add(cursor.getString(7));
+                archived.add(cursor.getString(8));
+            }
+        }
     }
     //測試------------------------------------------------
     private void makeData() {

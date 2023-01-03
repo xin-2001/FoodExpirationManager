@@ -211,6 +211,8 @@ public class dataInsertPageActivity extends Activity {
             public void onClick(View view) {
                 if(!itemNameEditText.getText().toString().isEmpty() && dateChecked!=0){
                     starErrorTextView.setTextColor(Color.rgb(170,170,170));
+
+
                     //送出新增資訊
                     FEMDatabaseHelper DB = new FEMDatabaseHelper(dataInsertPageActivity.this);
                     String objType = "";
@@ -234,6 +236,8 @@ public class dataInsertPageActivity extends Activity {
                                 noteEditText.getText().toString().trim()
                         );
                     }
+
+
                     //清除目前資料
                     drinkRadioButton.isChecked();
                     itemNameEditText.setText("");
@@ -247,6 +251,8 @@ public class dataInsertPageActivity extends Activity {
                     noteEditText.setText("");
                     Toast toast=Toast.makeText(getApplicationContext(),"新增成功",Toast.LENGTH_SHORT);
                     toast.show();
+
+
                 }else{
                     starErrorTextView.setTextColor(Color.rgb(255,0,0));
                 }

@@ -26,25 +26,21 @@
                 android:id="@+id/list_Name_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="QQㄋㄟㄋㄟ好喝到ㄇㄟ噗茶"
                 android:textSize="50px"/>
             <TextView
                 android:id="@+id/list_Quantity_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="數　　量："
                 android:textSize="40px" />
             <TextView
                 android:id="@+id/list_ShopDate_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="購買日期："
                 android:textSize="40px" />
             <TextView
                 android:id="@+id/list_Effectivedate_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="有效期限："
                 android:textSize="40px"/>
             <TextView
                 android:id="@+id/list_Tag_TextView"
