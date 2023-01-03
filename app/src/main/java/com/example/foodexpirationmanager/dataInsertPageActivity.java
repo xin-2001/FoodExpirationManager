@@ -25,34 +25,19 @@ public class dataInsertPageActivity extends Activity {
     private Button menuButton;
     private LinearLayout menuLayout;
     private boolean menu_Bool=false;
-    private TextView homeButton;
-    private TextView totalButton;
-    private TextView searchButton;
-    private TextView formButton;
+    private TextView homeButton,totalButton,searchButton,formButton;
     //類別選擇
-    private RadioGroup sort1RadioGroup;
-    private RadioGroup sort2RadioGroup;
-    private RadioButton drinkRadioButton;
-    private RadioButton dessertRadioButton;
-    private RadioButton freshRadioButton;
-    private RadioButton foodRadioButton;
-    private RadioButton sauceRadioButton;
-    private RadioButton otherRadioButton;
+    private RadioGroup sort1RadioGroup,sort2RadioGroup;
+    private RadioButton drinkRadioButton,dessertRadioButton,freshRadioButton;
+    private RadioButton foodRadioButton,sauceRadioButton,otherRadioButton;
     //驗證控制項
-    private EditText itemNameEditText;
-    private EditText tagNameEditText;
-    private TextView quantAddTextView;
-    private EditText quantityEditText;
-    private TextView quantSubTextView;
-    private TextView shopDateTextView;
-    private TextView effectiveDateTextView;
-    private EditText noteEditText;
+    private EditText itemNameEditText,tagNameEditText,quantityEditText,noteEditText;
+    private TextView quantAddTextView,quantSubTextView,shopDateTextView,effectiveDateTextView;
+    private TextView starErrorTextView;
     private DatePickerDialog.OnDateSetListener datePicker;
     private Calendar calendar = Calendar.getInstance();
     private int dateChoose=0,dateChecked=0;
-    private Button sentButton;
-    private TextView starErrorTextView;
-    private Button cancelButton;
+    private Button sentButton,cancelButton;
 
 
     @Override
@@ -121,7 +106,7 @@ public class dataInsertPageActivity extends Activity {
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(menu_Bool==false){
+                if(!menu_Bool){
                     menuLayout.setTranslationX(0);
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
                     params.width = 500;
@@ -227,7 +212,28 @@ public class dataInsertPageActivity extends Activity {
                 if(!itemNameEditText.getText().toString().isEmpty() && dateChecked!=0){
                     starErrorTextView.setTextColor(Color.rgb(170,170,170));
                     //送出新增資訊
+                    FEMDatabaseHelper DB = new FEMDatabaseHelper(dataInsertPageActivity.this);
+                    String objType = "";
+                    int classCounter = 0 ;
 
+                    // if radiobutton==true
+                    if(freshRadioButton.isChecked()) { objType = "freshfood"; classCounter = classCounter + 1; }
+                    if(foodRadioButton.isChecked()) { objType = "deli"; classCounter = classCounter + 1; }
+                    if(drinkRadioButton.isChecked()) { objType = "drink"; classCounter = classCounter + 1; }
+                    if(dessertRadioButton.isChecked()) { objType = "dessert"; classCounter = classCounter + 1; }
+                    if(sauceRadioButton.isChecked()) { objType = "sauce"; classCounter = classCounter + 1; }
+                    if(otherRadioButton.isChecked()) { objType = "otherfood"; classCounter = classCounter + 1; }
+                    // if counter correct insert data
+                    if(classCounter == 1) {
+                        DB.insertData(objType.trim(),
+                                itemNameEditText.getText().toString().trim(),
+                                tagNameEditText.getText().toString().trim(),
+                                shopDateTextView.getText().toString().trim(),
+                                effectiveDateTextView.getText().toString().trim(),
+                                Integer.valueOf(quantityEditText.getText().toString().trim()),
+                                noteEditText.getText().toString().trim()
+                        );
+                    }
                     //清除目前資料
                     drinkRadioButton.isChecked();
                     itemNameEditText.setText("");
