@@ -89,6 +89,7 @@ public class listPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(listPageActivity.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         totalButton.setOnClickListener(new View.OnClickListener() {
@@ -103,6 +104,7 @@ public class listPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(listPageActivity.this,searchPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         formButton.setOnClickListener(new View.OnClickListener() {
@@ -110,6 +112,7 @@ public class listPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(listPageActivity.this,formPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -142,6 +145,7 @@ public class listPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(listPageActivity.this,dataInsertPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -228,6 +232,7 @@ public class listPageActivity extends Activity {
             if(photo=="freshfood")photo_num=2;
             if(photo=="dessert")photo_num=3;
             if(photo=="otherfoodicon")photo_num=4;
+            if(photo=="drink")photo_num=5;
             holder.listPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), sort_images[photo_num]));
 
             holder.listNameTextView.setText(arrayList.get(position).get("name"));
@@ -241,6 +246,13 @@ public class listPageActivity extends Activity {
         public int getItemCount() {
             return arrayList.size();
         }
+    }
+
+    //重寫onBackPressed，禁止手機內建上一頁功能
+    public void onBackPressed(){
+        Intent i=new Intent(listPageActivity.this,MainActivity.class);
+        startActivity(i);
+        this.finish();
     }
 
 }

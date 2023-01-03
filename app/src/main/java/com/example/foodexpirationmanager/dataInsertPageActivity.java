@@ -76,6 +76,7 @@ public class dataInsertPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         totalButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,7 @@ public class dataInsertPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(dataInsertPageActivity.this,listPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +92,7 @@ public class dataInsertPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(dataInsertPageActivity.this,searchPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         formButton.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +100,7 @@ public class dataInsertPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(dataInsertPageActivity.this,formPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -267,6 +271,12 @@ public class dataInsertPageActivity extends Activity {
             }
         });
 
+    }
+    //重寫onBackPressed，禁止手機內建上一頁功能
+    public void onBackPressed(){
+        Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
+        startActivity(i);
+        this.finish();
     }
 
 }

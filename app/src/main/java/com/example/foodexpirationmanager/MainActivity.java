@@ -79,6 +79,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,listPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +87,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,searchPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         formButton.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +95,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,formPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -125,6 +128,7 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,dataInsertPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 

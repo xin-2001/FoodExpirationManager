@@ -31,16 +31,19 @@
                 android:id="@+id/list_Quantity_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="數　　量："
                 android:textSize="40px" />
             <TextView
                 android:id="@+id/list_ShopDate_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="購買日期："
                 android:textSize="40px" />
             <TextView
                 android:id="@+id/list_Effectivedate_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="有效日期："
                 android:textSize="40px"/>
             <TextView
                 android:id="@+id/list_Tag_TextView"
@@ -49,6 +52,24 @@
                 android:background="#F28585"
                 android:text="TAG"
                 android:textSize="30px"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left"
+            android:layout_marginLeft="15dp">
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="?attr/homeAsUpIndicator" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@android:drawable/ic_menu_delete" />
 
         </LinearLayout>
 

@@ -69,6 +69,7 @@ public class searchPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(searchPageActivity.this,MainActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         totalButton.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +77,7 @@ public class searchPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(searchPageActivity.this,listPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
         searchButton.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +92,7 @@ public class searchPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(searchPageActivity.this,formPageActivity.class);
                 startActivity(i);
+                finish();
             }
         });
 
@@ -134,5 +137,11 @@ public class searchPageActivity extends Activity {
             }
         });
 
+    }
+    //重寫onBackPressed，禁止手機內建上一頁功能
+    public void onBackPressed(){
+        Intent i=new Intent(searchPageActivity.this,MainActivity.class);
+        startActivity(i);
+        this.finish();
     }
 }
