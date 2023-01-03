@@ -12,22 +12,22 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+
 public class formPageActivity extends Activity {
 
-    private Button menuButton;
     private LinearLayout menuLayout;
     private boolean menu_Bool=false;
-    private TextView homeButton;
-    private TextView totalButton;
-    private TextView searchButton;
-    private TextView formButton;
-    private Button sentButton;
-    private EditText userNameEditText;
-    private EditText userEmailEditText;
-    private RadioButton questionRadioButton;
-    private RadioButton suggestionRadioButton;
-    private EditText userQusContentEditText;
-    private TextView errorTextView;
+    private Button menuButton,sentButton;
+    private TextView homeButton,totalButton,searchButton,formButton,errorTextView;
+    private EditText userNameEditText,userEmailEditText,userQusContentEditText;
+    private RadioButton questionRadioButton,suggestionRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,9 +107,17 @@ public class formPageActivity extends Activity {
             @Override
             public void onClick(View view) {
                 if(!userNameEditText.getText().toString().isEmpty() && !userEmailEditText.getText().toString().isEmpty() && !userQusContentEditText.getText().toString().isEmpty()){
+                    String nickname = userNameEditText.getText().toString();
+                    String email = userEmailEditText.getText().toString();
+                    String content = userQusContentEditText.getText().toString();
+                    String fbClass = "提問";
+                    if (suggestionRadioButton.isChecked() == true ){
+                        fbClass = "建議";
+                    }
                     errorTextView.setText("已將您的提問送出");
-                    //送出提問/建議資訊
+                    feedbackData(nickname,email,fbClass,content);
 
+                    //送出提問/建議資訊
                     userNameEditText.setText("");
                     userEmailEditText.setText("");
                     userQusContentEditText.setText("");
@@ -132,6 +140,33 @@ public class formPageActivity extends Activity {
 
 
     }
+
+    private void feedbackData(String nickname, String email, String fbClass, String content) {
+        //google app script 部署後的
+        String url = "https://script.google.com/macros/s/AKfycbwAvJ0gNfEFnnXrIM7qqAnSbEReZych_YlzE298MD1mRKtrF6rUYgq4rFaMFLfDnycUZQ/exec?";
+        //串接get需要的東西
+        url = url + "action=create"
+                   +"&nickname="+nickname
+                   +"&email="+email
+                   +"&fbClass="+fbClass
+                   +"&content="+content;
+        //下去做get
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Toast.makeText(formPageActivity.this, response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(formPageActivity.this,error.getMessage(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
+    }
+
     //重寫onBackPressed，禁止手機內建上一頁功能
     public void onBackPressed(){
 
