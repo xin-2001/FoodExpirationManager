@@ -2,6 +2,9 @@ package com.example.foodexpirationmanager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toolbar;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -19,6 +22,20 @@ public class searchPageActivity extends Activity {
     private TextView totalButton;
     private TextView searchButton;
     private TextView formButton;
+    private RadioGroup dateDistanceRadioGroup1;
+    private RadioGroup dateDistanceRadioGroup2;
+    private RadioButton date0RadioButton;
+    private RadioButton date5RadioButton;
+    private RadioButton date7RadioButton;
+    private RadioButton date14RadioButton;
+    private RadioButton date30RadioButton;
+    private RadioButton date60RadioButton;
+    private CheckBox drinkCheckBox;
+    private CheckBox freshCheckBox;
+    private CheckBox foodCheckBox;
+    private CheckBox sauceCheckBox;
+    private CheckBox dessertCheckBox;
+    private CheckBox otherCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +48,22 @@ public class searchPageActivity extends Activity {
         totalButton=findViewById(R.id.total_Button);
         searchButton=findViewById(R.id.search_Button);
         formButton=findViewById(R.id.form_Button);
+        dateDistanceRadioGroup1=findViewById(R.id.date_distance_RadioGroup1);
+        dateDistanceRadioGroup2=findViewById(R.id.date_distance_RadioGroup2);
+        date0RadioButton=findViewById(R.id.date0_RadioButton);
+        date5RadioButton=findViewById(R.id.date5_RadioButton);
+        date7RadioButton=findViewById(R.id.date7_RadioButton);
+        date14RadioButton=findViewById(R.id.date14_RadioButton);
+        date30RadioButton=findViewById(R.id.date30_RadioButton);
+        date60RadioButton=findViewById(R.id.date60_RadioButton);
+        drinkCheckBox=findViewById(R.id.drink_CheckBox);
+        freshCheckBox=findViewById(R.id.fresh_CheckBox);
+        foodCheckBox=findViewById(R.id.food_CheckBox);
+        sauceCheckBox=findViewById(R.id.sauce_CheckBox);
+        dessertCheckBox=findViewById(R.id.dessert_CheckBox);
+        otherCheckBox=findViewById(R.id.other_CheckBox);
 
+        //選單
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -61,8 +93,6 @@ public class searchPageActivity extends Activity {
             }
         });
 
-
-
         //目錄的開啟及收合
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +113,24 @@ public class searchPageActivity extends Activity {
                 }
 
 
+            }
+        });
+
+        //到期日的單選
+        dateDistanceRadioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                date14RadioButton.setChecked(false);
+                date30RadioButton.setChecked(false);
+                date60RadioButton.setChecked(false);
+            }
+        });
+        dateDistanceRadioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                date0RadioButton.setChecked(false);
+                date5RadioButton.setChecked(false);
+                date7RadioButton.setChecked(false);
             }
         });
 

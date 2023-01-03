@@ -168,7 +168,6 @@ public class MainActivity extends Activity {
 
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-            holder.sortIdTextView.setText(arrayList.get(position).get("id"));
             String photo;
             int[] sort_images;
             int photo_num=0;

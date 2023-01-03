@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/list_photo_TextView"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:background="@drawable/deli"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="left">
+            <TextView
+                android:id="@+id/list_Name_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="QQㄋㄟㄋㄟ好喝到ㄇㄟ噗茶"
+                android:textSize="50px"/>
+            <TextView
+                android:id="@+id/list_Quantity_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="數　　量："
+                android:textSize="40px" />
+            <TextView
+                android:id="@+id/list_ShopDate_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="購買日期："
+                android:textSize="40px" />
+            <TextView
+                android:id="@+id/list_Effectivedate_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="有效期限："
+                android:textSize="40px"/>
+            <TextView
+                android:id="@+id/list_Tag_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#F28585"
+                android:text="TAG"
+                android:textSize="30px"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

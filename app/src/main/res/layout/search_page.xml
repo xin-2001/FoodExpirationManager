@@ -95,6 +95,31 @@
                 android:layout_marginTop="20dp"
                 android:background="#F0CCC2"
                 android:paddingTop="20dp"
+                android:paddingBottom="20dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="使用關鍵字搜尋"
+                    android:textSize="50px"
+                    android:layout_marginLeft="10dp"/>
+                <EditText
+                    android:id="@+id/keywordseach_EditText"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:hint="請輸入關鍵字"
+                    android:gravity="center_horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="60px"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="left"
+                android:layout_marginTop="20dp"
+                android:background="#F0CCC2"
+                android:paddingTop="20dp"
                 android:paddingBottom="20dp"
                 android:paddingLeft="10dp">
                 <TextView
@@ -102,72 +127,6 @@
                     android:layout_height="wrap_content"
                     android:text="使用篩選搜尋"
                     android:textSize="50px" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="left">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="距離到期日："
-                        android:textSize="50px"
-                        android:paddingLeft="10dp"
-                        android:layout_marginTop="3dp"/>
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="left">
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="left">
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="已到期"
-                                android:textSize="50px"/>
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="5日"
-                                android:textSize="50px"/>
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="7日"
-                                android:textSize="50px"/>
-
-                        </LinearLayout>
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="left">
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="14日"
-                                android:textSize="50px"/>
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="30日"
-                                android:textSize="50px"/>
-                            <CheckBox
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="60日"
-                                android:textSize="50px"/>
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -191,16 +150,19 @@
                             android:orientation="horizontal"
                             android:gravity="left">
                             <CheckBox
+                                android:id="@+id/drink_CheckBox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="飲料"
                                 android:textSize="50px"/>
                             <CheckBox
+                                android:id="@+id/fresh_CheckBox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="生鮮"
                                 android:textSize="50px"/>
                             <CheckBox
+                                android:id="@+id/food_CheckBox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="熟食"
@@ -213,16 +175,19 @@
                             android:orientation="horizontal"
                             android:gravity="left">
                             <CheckBox
+                                android:id="@+id/sauce_CheckBox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="乾糧"
+                                android:text="醬料"
                                 android:textSize="50px"/>
                             <CheckBox
+                                android:id="@+id/dessert_CheckBox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="點心"
                                 android:textSize="50px"/>
                             <CheckBox
+                                android:id="@+id/other_CheckBox"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="其他"
@@ -233,49 +198,94 @@
                     </LinearLayout>
 
                 </LinearLayout>
-                <Button
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="搜尋"
-                    android:textSize="50px"
-                    android:background="#FFFFFF"/>
+                    android:orientation="horizontal"
+                    android:gravity="left">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="距離到期日："
+                        android:textSize="50px"
+                        android:paddingLeft="10dp"
+                        android:layout_marginTop="3dp"/>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:gravity="left">
+                        <RadioGroup
+                            android:id="@+id/date_distance_RadioGroup1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="left">
+                            <RadioButton
+                                android:id="@+id/date0_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="已到期"
+                                android:textSize="50px"/>
+                            <RadioButton
+                                android:id="@+id/date5_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5日"
+                                android:textSize="50px"/>
+                            <RadioButton
+                                android:id="@+id/date7_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="7日"
+                                android:textSize="50px"/>
+
+                        </RadioGroup>
+                        <RadioGroup
+                            android:id="@+id/date_distance_RadioGroup2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="left">
+                            <RadioButton
+                                android:id="@+id/date14_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="14日"
+                                android:textSize="50px"/>
+                            <RadioButton
+                                android:id="@+id/date30_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="30日"
+                                android:textSize="50px"/>
+                            <RadioButton
+                                android:id="@+id/date60_RadioButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="60日"
+                                android:textSize="50px"/>
+
+                        </RadioGroup>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
 
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="left"
-                android:layout_marginTop="20dp"
-                android:background="#F0CCC2"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="使用關鍵字搜尋"
-                    android:textSize="50px"
-                    android:layout_marginLeft="10dp"/>
-                <EditText
-                    android:id="@+id/keywordseach_EditText"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:hint="請輸入關鍵字"
-                    android:gravity="center_horizontal"
-                    android:layout_gravity="center_horizontal"
-                    android:textSize="60px"
-                    android:layout_marginTop="10dp"/>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:text="搜尋"
-                    android:textSize="50px"
-                    android:background="#FFFFFF"/>
-            </LinearLayout>
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
+                android:text="搜尋"
+                android:textSize="50px"
+                android:background="#F2B263"/>
+
+
         </LinearLayout>
     </LinearLayout>
 
