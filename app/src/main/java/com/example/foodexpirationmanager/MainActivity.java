@@ -154,12 +154,14 @@ public class MainActivity extends Activity {
 
         class ViewHolder extends RecyclerView.ViewHolder{
             private TextView sortIdTextView,itemNameTextView,dateTextView;
+            private View homeView;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 sortIdTextView = itemView.findViewById(R.id.sort_photo_TextView);
                 itemNameTextView = itemView.findViewById(R.id.item_Name_TextView);
                 dateTextView  = itemView.findViewById(R.id.date_TextView);
+                homeView  = itemView;
             }
         }
         @NonNull
@@ -188,6 +190,12 @@ public class MainActivity extends Activity {
 
             holder.itemNameTextView.setText(arrayList.get(position).get("name"));
             holder.dateTextView.setText(arrayList.get(position).get("date"));
+
+            //item的點擊事件
+            holder.homeView.setOnClickListener((v)->{
+                Toast.makeText(getBaseContext(),holder.itemNameTextView.getText(),Toast.LENGTH_SHORT).show();
+            });
+
         }
 
         @Override

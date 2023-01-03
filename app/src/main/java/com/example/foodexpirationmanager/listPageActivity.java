@@ -31,6 +31,7 @@ public class listPageActivity extends Activity {
     private TextView totalButton;
     private TextView searchButton;
     private TextView formButton;
+    private TextView IdTextView;
     private RecyclerView recyclerView;
     //private TotalListAdapter totalListAdapter;
     FEMDatabaseHelper DB;
@@ -39,6 +40,7 @@ public class listPageActivity extends Activity {
     GoodAdapter goodAdapter;
     // array test
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
+    public String this_id,this_objType,this_name,this_tag,this_buyDate,this_expiration,this_num,this_ps,this_archived;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,7 @@ public class listPageActivity extends Activity {
         searchButton=findViewById(R.id.search_Button);
         formButton=findViewById(R.id.form_Button);
         recyclerView = findViewById(R.id.list_recycleview);
+        IdTextView=findViewById(R.id.ID_TextView);
 
         // DATABASE;
         DB = new FEMDatabaseHelper(listPageActivity.this);
@@ -148,6 +151,15 @@ public class listPageActivity extends Activity {
                 finish();
             }
         });
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                
+                Intent i=new Intent(listPageActivity.this,dataInsertPageActivity.class);
+                //i.putExtra("ID",this_id);//報告完再繼續，這裡要put到下一頁，下一頁要寫判斷是從哪進來，以及接資料
+                startActivity(i);
+            }
+        });
 
 
 
@@ -173,6 +185,16 @@ public class listPageActivity extends Activity {
                 archived.add(cursor.getString(8));
             }
         }
+        /*this_id=goodAdapter.this_id;
+        this_objType=goodAdapter.this_objType;
+        this_name=goodAdapter.this_name;
+        this_tag=goodAdapter.this_tag;
+        this_buyDate=goodAdapter.this_buyDate;
+        this_expiration=goodAdapter.this_expiration;
+        this_num=goodAdapter.this_num;
+        this_ps=goodAdapter.this_ps;
+        this_archived=goodAdapter.this_archived;*/
+
     }
     //測試------------------------------------------------
     private void makeData() {
@@ -199,6 +221,7 @@ public class listPageActivity extends Activity {
         class ViewHolder extends RecyclerView.ViewHolder{
             private TextView listPhotoTextView,listNameTextView,listShopdateTextView,
                     listQuantityTextView,listEffectivedateTextView,listTagTextView;
+            private View listView;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -208,6 +231,7 @@ public class listPageActivity extends Activity {
                 listQuantityTextView = itemView.findViewById(R.id.list_Quantity_TextView);
                 listEffectivedateTextView = itemView.findViewById(R.id.list_Effectivedate_TextView);
                 listTagTextView  = itemView.findViewById(R.id.list_Tag_TextView);
+                listView  = itemView;
             }
         }
         @NonNull

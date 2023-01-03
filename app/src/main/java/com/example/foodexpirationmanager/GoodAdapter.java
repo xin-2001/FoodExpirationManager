@@ -3,11 +3,13 @@ package com.example.foodexpirationmanager;
 //import static androidx.core.graphics.drawable.IconCompat.getResources;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -20,6 +22,8 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
 
     private Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+    public String this_id,this_objType,this_name,this_tag,this_buyDate,this_expiration,this_num,this_ps,this_archived;
+
 
     GoodAdapter(Context context,
                 ArrayList ID,
@@ -76,6 +80,20 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         holder.list_ShopDate_TextView.append(String.valueOf(buyDate.get(position)));
         holder.list_Effectivedate_TextView.append(String.valueOf(expiration.get(position)));
         holder.list_Tag_TextView.setText(String.valueOf(tag.get(position)));
+
+
+        //item的點擊事件
+        holder.goodView.setOnClickListener((v)->{
+            this_id=String.valueOf(ID.get(position));
+            this_objType=String.valueOf(objType.get(position));
+            this_name=String.valueOf(name.get(position));
+            this_tag=String.valueOf(tag.get(position));
+            this_buyDate=String.valueOf(buyDate.get(position));
+            this_expiration=String.valueOf(expiration.get(position));
+            this_num=String.valueOf(num.get(position));
+            this_ps=String.valueOf(ps.get(position));
+            this_archived=String.valueOf(archived.get(position));
+        });
     }
 
     @Override
@@ -86,7 +104,8 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
     public class DataViewHolder extends RecyclerView.ViewHolder {
 
         TextView list_photo_TextView,list_Name_TextView,list_Quantity_TextView,
-                list_ShopDate_TextView,list_Effectivedate_TextView,list_Tag_TextView ;
+                list_ShopDate_TextView,list_Effectivedate_TextView,list_Tag_TextView;
+        private View goodView;
 
         public DataViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -96,6 +115,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             list_ShopDate_TextView = itemView.findViewById(R.id.list_ShopDate_TextView);
             list_Effectivedate_TextView = itemView.findViewById(R.id.list_Effectivedate_TextView);
             list_Tag_TextView = itemView.findViewById(R.id.list_Tag_TextView);
+            goodView=itemView;
         }
     }
 }
