@@ -33,14 +33,12 @@ public class listPageActivity extends Activity {
     private TextView formButton;
     private TextView IdTextView;
     private RecyclerView recyclerView;
-    //private TotalListAdapter totalListAdapter;
     FEMDatabaseHelper DB;
     // array test
     ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived;
     GoodAdapter goodAdapter;
     // array test
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
-    public String this_id,this_objType,this_name,this_tag,this_buyDate,this_expiration,this_num,this_ps,this_archived;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +67,6 @@ public class listPageActivity extends Activity {
         ps= new ArrayList<>();
         archived= new ArrayList<>();
 
-        //makeData();
         //儲存data到array等拿出來用
         storeDataToArrays();
         //啟用goodadapter去拿取
@@ -77,15 +74,6 @@ public class listPageActivity extends Activity {
         recyclerView.setAdapter(goodAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(listPageActivity.this));
 
-        //設置RecyclerView_舊
-        /*
-        totalRecyclerView = findViewById(R.id.list_recycleview);
-        totalRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        totalRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        totalListAdapter = new TotalListAdapter();
-        totalRecyclerView.setAdapter(totalListAdapter);
-        */
-        //設置RecyclerView_舊
         //目錄頁
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,21 +135,11 @@ public class listPageActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(listPageActivity.this,dataInsertPageActivity.class);
+                i.putExtra("ID","NULL");
                 startActivity(i);
                 finish();
             }
         });
-        recyclerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                
-                Intent i=new Intent(listPageActivity.this,dataInsertPageActivity.class);
-                //i.putExtra("ID",this_id);//報告完再繼續，這裡要put到下一頁，下一頁要寫判斷是從哪進來，以及接資料
-                startActivity(i);
-            }
-        });
-
-
 
 
 
@@ -185,92 +163,9 @@ public class listPageActivity extends Activity {
                 archived.add(cursor.getString(8));
             }
         }
-        /*this_id=goodAdapter.this_id;
-        this_objType=goodAdapter.this_objType;
-        this_name=goodAdapter.this_name;
-        this_tag=goodAdapter.this_tag;
-        this_buyDate=goodAdapter.this_buyDate;
-        this_expiration=goodAdapter.this_expiration;
-        this_num=goodAdapter.this_num;
-        this_ps=goodAdapter.this_ps;
-        this_archived=goodAdapter.this_archived;*/
-
-    }
-    //測試------------------------------------------------
-    private void makeData() {
-        String[] sort;
-        sort=new String[]{"deli","dessert","sauce","freshfood","otherfoodicon"};
-        for (int i=1;i<=9;i++){
-            HashMap<String,String> hashMap = new HashMap<>();
-            hashMap.put("id",String.valueOf(i));
-            hashMap.put("photo",sort[i%5]);
-            hashMap.put("name","pizza");
-            hashMap.put("quantity","5");
-            hashMap.put("shopdate","2022/11/0"+i);
-            hashMap.put("effectivedate","2023/05/0"+i);
-            hashMap.put("tag","123");
-            arrayList.add(hashMap);
-        }
 
     }
 
-    //------------------------------------------------
-    private class TotalListAdapter extends RecyclerView.Adapter<TotalListAdapter.ViewHolder>{
-
-
-        class ViewHolder extends RecyclerView.ViewHolder{
-            private TextView listPhotoTextView,listNameTextView,listShopdateTextView,
-                    listQuantityTextView,listEffectivedateTextView,listTagTextView;
-            private View listView;
-
-            public ViewHolder(@NonNull View itemView) {
-                super(itemView);
-                listPhotoTextView = itemView.findViewById(R.id.list_photo_TextView);
-                listNameTextView = itemView.findViewById(R.id.list_Name_TextView);
-                listShopdateTextView  = itemView.findViewById(R.id.list_ShopDate_TextView);
-                listQuantityTextView = itemView.findViewById(R.id.list_Quantity_TextView);
-                listEffectivedateTextView = itemView.findViewById(R.id.list_Effectivedate_TextView);
-                listTagTextView  = itemView.findViewById(R.id.list_Tag_TextView);
-                listView  = itemView;
-            }
-        }
-        @NonNull
-        @Override
-        public TotalListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.list_page_recycler,parent,false);
-            return new TotalListAdapter.ViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull TotalListAdapter.ViewHolder holder, int position) {
-            String photo;
-            int[] sort_images;
-            int photo_num=0;
-            sort_images = new int[]{R.drawable.deli, R.drawable.sauce,
-                    R.drawable.freshfood, R.drawable.dessert,R.drawable.otherfoodicon};
-
-            photo=arrayList.get(position).get("photo");
-            if(photo=="deli")photo_num=0;
-            if(photo=="sauce")photo_num=1;
-            if(photo=="freshfood")photo_num=2;
-            if(photo=="dessert")photo_num=3;
-            if(photo=="otherfoodicon")photo_num=4;
-            if(photo=="drink")photo_num=5;
-            holder.listPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), sort_images[photo_num]));
-
-            holder.listNameTextView.setText(arrayList.get(position).get("name"));
-            holder.listEffectivedateTextView.append(arrayList.get(position).get("effectivedate"));
-            holder.listQuantityTextView.append(arrayList.get(position).get("quantity"));
-            holder.listShopdateTextView.append(arrayList.get(position).get("shopdate"));
-            holder.listTagTextView.setText(arrayList.get(position).get("tag"));
-        }
-
-        @Override
-        public int getItemCount() {
-            return arrayList.size();
-        }
-    }
 
     //重寫onBackPressed，禁止手機內建上一頁功能
     public void onBackPressed(){

@@ -117,11 +117,10 @@
                             android:orientation="horizontal"
                             android:gravity="left">
                             <RadioButton
-                                android:id="@+id/drink_RadioButton"
+                                android:id="@+id/food_RadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="飲料"
-                                android:checked="true"/>
+                                android:text="熟食"/>
                             <RadioButton
                                 android:id="@+id/dessert_RadioButton"
                                 android:layout_width="wrap_content"
@@ -141,10 +140,11 @@
                             android:orientation="horizontal"
                             android:gravity="left">
                             <RadioButton
-                                android:id="@+id/food_RadioButton"
+                                android:id="@+id/drink_RadioButton"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="熟食"/>
+                                android:text="飲料"/>
+
                             <RadioButton
                                 android:id="@+id/sauce_RadioButton"
                                 android:layout_width="wrap_content"

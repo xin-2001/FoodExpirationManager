@@ -19,6 +19,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class dataInsertPageActivity extends Activity {
     //選單
@@ -38,6 +39,7 @@ public class dataInsertPageActivity extends Activity {
     private Calendar calendar = Calendar.getInstance();
     private int dateChoose=0,dateChecked=0;
     private Button sentButton,cancelButton;
+    private String ID,objType,name,tag,buyDate,expiration,num,ps,archived;
 
 
     @Override
@@ -70,6 +72,69 @@ public class dataInsertPageActivity extends Activity {
         sentButton=findViewById(R.id.sent_Button);
         starErrorTextView=findViewById(R.id.star_error_TextView);
         cancelButton=findViewById(R.id.cancel_Button);
+
+        //類別預設選取
+        foodRadioButton.setChecked(true);
+        //接收資料
+        Intent intent=getIntent();
+        ID=intent.getStringExtra("ID");
+        if (ID.equals("NULL")){
+
+        }else{
+            objType=intent.getStringExtra("objType");
+            name=intent.getStringExtra("name");
+            tag=intent.getStringExtra("tag");
+            buyDate=intent.getStringExtra("buyDate");
+            expiration=intent.getStringExtra("expiration");
+            num=intent.getStringExtra("num");
+            ps=intent.getStringExtra("ps");
+            archived=intent.getStringExtra("archived");
+            if(objType.equals("drink")){
+                drinkRadioButton.setChecked(true);
+                foodRadioButton.setChecked(false);
+                dessertRadioButton.setChecked(false);
+                freshRadioButton.setChecked(false);
+            }
+            if(objType.equals("deli")){
+                foodRadioButton.setChecked(true);
+                drinkRadioButton.setChecked(false);
+                sauceRadioButton.setChecked(false);
+                otherRadioButton.setChecked(false);
+            }
+            if(objType.equals("dessert")){
+                dessertRadioButton.setChecked(true);
+                drinkRadioButton.setChecked(false);
+                sauceRadioButton.setChecked(false);
+                otherRadioButton.setChecked(false);
+            }
+            if(objType.equals("sauce")){
+                sauceRadioButton.setChecked(true);
+                foodRadioButton.setChecked(false);
+                dessertRadioButton.setChecked(false);
+                freshRadioButton.setChecked(false);
+            }
+            if(objType.equals("freshfood")){
+                freshRadioButton.setChecked(true);
+                drinkRadioButton.setChecked(false);
+                sauceRadioButton.setChecked(false);
+                otherRadioButton.setChecked(false);
+            }
+            if(objType.equals("otherfoodicon")){
+                otherRadioButton.setChecked(true);
+                foodRadioButton.setChecked(false);
+                dessertRadioButton.setChecked(false);
+                freshRadioButton.setChecked(false);
+            }
+            itemNameEditText.setText(name);
+            tagNameEditText.setText(tag);
+            quantityEditText.setText(num);
+            shopDateTextView.setText(buyDate);
+            effectiveDateTextView.setText(expiration);
+            noteEditText.setText(ps);
+        }
+
+
+
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +197,7 @@ public class dataInsertPageActivity extends Activity {
         sort1RadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                foodRadioButton.setChecked(false);
+                drinkRadioButton.setChecked(false);
                 sauceRadioButton.setChecked(false);
                 otherRadioButton.setChecked(false);
             }
@@ -140,7 +205,7 @@ public class dataInsertPageActivity extends Activity {
         sort2RadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                drinkRadioButton.setChecked(false);
+                foodRadioButton.setChecked(false);
                 dessertRadioButton.setChecked(false);
                 freshRadioButton.setChecked(false);
             }
@@ -267,9 +332,14 @@ public class dataInsertPageActivity extends Activity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dataInsertPageActivity.this.finish();
+                Intent i=new Intent(dataInsertPageActivity.this,listPageActivity.class);
+                startActivity(i);
+                finish();
+
             }
         });
+
+
 
     }
     //重寫onBackPressed，禁止手機內建上一頁功能

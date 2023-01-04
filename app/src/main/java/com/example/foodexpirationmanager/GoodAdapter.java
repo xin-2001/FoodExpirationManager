@@ -2,6 +2,7 @@ package com.example.foodexpirationmanager;
 
 //import static androidx.core.graphics.drawable.IconCompat.getResources;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -22,7 +23,6 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
 
     private Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
-    public String this_id,this_objType,this_name,this_tag,this_buyDate,this_expiration,this_num,this_ps,this_archived;
 
 
     GoodAdapter(Context context,
@@ -57,7 +57,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull GoodAdapter.DataViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GoodAdapter.DataViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //holder.list_photo_TextView.setText(String.valueOf(objType.get(position)));
         String photo;
         int[] sort_images;
@@ -80,19 +80,29 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         holder.list_ShopDate_TextView.append(String.valueOf(buyDate.get(position)));
         holder.list_Effectivedate_TextView.append(String.valueOf(expiration.get(position)));
         holder.list_Tag_TextView.setText(String.valueOf(tag.get(position)));
+        holder.list_ps_TextView.setText(String.valueOf(ps.get(position)));
 
 
         //item的點擊事件
-        holder.goodView.setOnClickListener((v)->{
-            this_id=String.valueOf(ID.get(position));
-            this_objType=String.valueOf(objType.get(position));
-            this_name=String.valueOf(name.get(position));
-            this_tag=String.valueOf(tag.get(position));
-            this_buyDate=String.valueOf(buyDate.get(position));
-            this_expiration=String.valueOf(expiration.get(position));
-            this_num=String.valueOf(num.get(position));
-            this_ps=String.valueOf(ps.get(position));
-            this_archived=String.valueOf(archived.get(position));
+        holder.itemView.setOnClickListener (new View.OnClickListener () {
+            @Override
+            public void onClick (View view) {
+
+                Intent i = new Intent ();
+                i.setClass (view.getContext (),dataInsertPageActivity.class);
+                i.putExtra("ID", String.valueOf(ID.get(position)));
+                i.putExtra("objType", String.valueOf(objType.get(position)));
+                i.putExtra("name",String.valueOf(name.get(position)));
+                i.putExtra("tag",String.valueOf(tag.get(position)));
+                i.putExtra("buyDate",String.valueOf(buyDate.get(position)));
+                i.putExtra("expiration",String.valueOf(expiration.get(position)));
+                i.putExtra("num",String.valueOf(num.get(position)));
+                i.putExtra("ps",String.valueOf(ps.get(position)));
+                i.putExtra("archived",String.valueOf(archived.get(position)));
+                view.getContext ().startActivity (i);
+                /*Toast toast=Toast.makeText(context,String.valueOf(ID.get(position)),Toast.LENGTH_SHORT);
+                toast.show();*/
+            }
         });
     }
 
@@ -104,7 +114,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
     public class DataViewHolder extends RecyclerView.ViewHolder {
 
         TextView list_photo_TextView,list_Name_TextView,list_Quantity_TextView,
-                list_ShopDate_TextView,list_Effectivedate_TextView,list_Tag_TextView;
+                list_ShopDate_TextView,list_Effectivedate_TextView,list_Tag_TextView,list_ps_TextView;
         private View goodView;
 
         public DataViewHolder(@NonNull View itemView) {
@@ -115,6 +125,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             list_ShopDate_TextView = itemView.findViewById(R.id.list_ShopDate_TextView);
             list_Effectivedate_TextView = itemView.findViewById(R.id.list_Effectivedate_TextView);
             list_Tag_TextView = itemView.findViewById(R.id.list_Tag_TextView);
+            list_ps_TextView=itemView.findViewById(R.id.list_ps_TextView);
             goodView=itemView;
         }
     }

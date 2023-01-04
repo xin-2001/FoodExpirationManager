@@ -127,6 +127,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,dataInsertPageActivity.class);
+                i.putExtra("ID","NULL");
                 startActivity(i);
                 finish();
             }
