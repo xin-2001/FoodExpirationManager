@@ -326,6 +326,9 @@ public class dataInsertPageActivity extends Activity {
                 }else{
                     starErrorTextView.setTextColor(Color.rgb(255,0,0));
                 }
+                Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
+                startActivity(i);
+                finish();
             }
         });
 

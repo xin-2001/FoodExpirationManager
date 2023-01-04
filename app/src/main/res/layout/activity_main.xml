@@ -27,6 +27,13 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="0dp"
                 android:background="@drawable/list_pic2" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="首頁"
+                android:textSize="80px"
+                android:gravity="center"
+                android:layout_marginRight="40dp"/>
         </LinearLayout>
     </android.widget.Toolbar>
 

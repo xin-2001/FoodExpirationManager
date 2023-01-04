@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_gravity="left">
+            android:gravity="center_vertical">
 
             <Button
                 android:id="@+id/menu_Button"
@@ -24,6 +24,13 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="0dp"
                 android:background="@drawable/list_pic2" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="搜尋"
+                android:textSize="80px"
+                android:gravity="center"
+                android:layout_marginRight="40dp"/>
 
         </LinearLayout>
     </android.widget.Toolbar>
