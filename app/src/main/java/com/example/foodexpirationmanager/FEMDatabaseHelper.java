@@ -84,18 +84,30 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    Cursor selectData(){
+    Cursor selectData(int i){
         //SQL1 select出所有food且以未封存→已封存+有效日期由小到大排序
         String SQL1 = "SELECT * FROM " + TABLE_NAME
               //+ " WHERE archived =  0"
                 + " ORDER BY archived ASC ,"
                 + COLUMN_expiration + " ASC";
+        //SQL2 select出所有7天以內要過期的食物+有效日期由小到大排序
+        String SQL2 = "SELECT * , julianday(expiration) - julianday(date('now','start of day')) AS timelimit"
+                    + " FROM " + TABLE_NAME
+                    + " WHERE archived = 0 "
+                    + " AND timelimit <= 7"
+                    ;
+        //日期處理需要用公式@@
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;
 
         if(db!=null){
+            if (i == 1){
                 cursor = db.rawQuery(SQL1, null);
+            }
+            if (i == 2){
+                cursor = db.rawQuery(SQL2, null);
+            }
         }
         return cursor;
     }
@@ -103,6 +115,8 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
         String SQL1 = "SELECT * FROM " + TABLE_NAME
                 + " WHERE archived = 0 "
                 + " ORDER BY " + COLUMN_expiration + " ASC" ;
+
+
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = null;

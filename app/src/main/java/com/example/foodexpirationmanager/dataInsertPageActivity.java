@@ -236,7 +236,7 @@ public class dataInsertPageActivity extends Activity {
                 calendar.set(Calendar.YEAR, year);
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String myFormat = "yyyy/MM/dd";
+                String myFormat = "yyyy-MM-dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.TAIWAN);
                 if(dateChoose==1){
                     shopDateTextView.setText(sdf.format(calendar.getTime()));

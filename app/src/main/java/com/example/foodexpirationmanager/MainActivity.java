@@ -37,9 +37,9 @@ public class MainActivity extends Activity {
     private RecyclerView recyclerView;
     //private HomeListAdapter homeListAdapter;
 
-    // database and arraylist
+    // database and arraylist and great adapter
     FEMDatabaseHelper DB;
-    ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+    ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit;
     GreatAdapter greatAdapter;
 
     //消失LA
@@ -76,6 +76,7 @@ public class MainActivity extends Activity {
         num= new ArrayList<>();
         ps= new ArrayList<>();
         archived= new ArrayList<>();
+        timelimit = new ArrayList<>();
 
         storeDataToArrays();
         //makeData();
@@ -96,7 +97,7 @@ public class MainActivity extends Activity {
         */
 
         //設置RecycleView
-        greatAdapter = new GreatAdapter(MainActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived);
+        greatAdapter = new GreatAdapter(MainActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit);
         recyclerView.setAdapter(greatAdapter);
         //recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -191,11 +192,11 @@ public class MainActivity extends Activity {
     //測試------------------------------------------------
 
     void storeDataToArrays(){
-        Cursor cursor = DB.selectData();
+        Cursor cursor = DB.selectData(2);
         if (cursor.getCount() == 0){
-            Toast.makeText(this,"Failed>:(",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"no 7 days limit",Toast.LENGTH_SHORT).show();
         }else{
-            //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+            //ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit
             while(cursor.moveToNext()){
                 ID.add(cursor.getString(0));
                 objType.add(cursor.getString(1));
@@ -206,6 +207,7 @@ public class MainActivity extends Activity {
                 num.add(cursor.getString(6));
                 ps.add(cursor.getString(7));
                 archived.add(cursor.getString(8));
+                timelimit.add(cursor.getString(9));
             }
         }
 

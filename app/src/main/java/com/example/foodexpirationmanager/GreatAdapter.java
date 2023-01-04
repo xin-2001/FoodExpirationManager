@@ -17,10 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+//超偉大處理器
 public class GreatAdapter extends RecyclerView.Adapter<GreatAdapter.DataViewHolder> {
     
     private Context context;
-    private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+    private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit;
 
     GreatAdapter(Context context,
                 ArrayList ID,
@@ -31,7 +32,8 @@ public class GreatAdapter extends RecyclerView.Adapter<GreatAdapter.DataViewHold
                 ArrayList expiration,
                 ArrayList num,
                 ArrayList ps,
-                ArrayList archived){
+                ArrayList archived,
+                ArrayList timelimit){
         this.context = context;
         this.ID = ID;
         this.objType = objType;
@@ -42,7 +44,7 @@ public class GreatAdapter extends RecyclerView.Adapter<GreatAdapter.DataViewHold
         this.num = num;
         this.ps = ps;
         this.archived = archived;
-
+        this.timelimit = timelimit;
     }
     
     
@@ -57,7 +59,7 @@ public class GreatAdapter extends RecyclerView.Adapter<GreatAdapter.DataViewHold
 
     @Override
 
-    public void onBindViewHolder(@NonNull GreatAdapter.DataViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull GreatAdapter.DataViewHolder holder, @SuppressLint("RecyclerView") int position) {
         String photo;
         int[] sort_images;
         int photo_num=0;
@@ -78,9 +80,23 @@ public class GreatAdapter extends RecyclerView.Adapter<GreatAdapter.DataViewHold
         holder.dateTextView.setText(String.valueOf(expiration.get(position)));
 
         //item的點擊事件
-        holder.itemView.setOnClickListener((v)->{
-            //Toast.makeText(getBaseContext(),holder.itemNameTextView.getText(),Toast.LENGTH_SHORT).show();
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent ();
+                i.setClass (view.getContext (),dataInsertPageActivity.class);
+                i.putExtra("ID", String.valueOf(ID.get(position)));
+                i.putExtra("objType", String.valueOf(objType.get(position)));
+                i.putExtra("name",String.valueOf(name.get(position)));
+                i.putExtra("tag",String.valueOf(tag.get(position)));
+                i.putExtra("buyDate",String.valueOf(buyDate.get(position)));
+                i.putExtra("expiration",String.valueOf(expiration.get(position)));
+                i.putExtra("num",String.valueOf(num.get(position)));
+                i.putExtra("ps",String.valueOf(ps.get(position)));
+                i.putExtra("archived",String.valueOf(archived.get(position)));
+                i.putExtra("timelimit",String.valueOf(archived.get(position)));
+                view.getContext ().startActivity (i);
+            }
         });
     }
 

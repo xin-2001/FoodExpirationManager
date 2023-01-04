@@ -17,16 +17,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class listPageActivity extends Activity {
-    private Button menuButton;
-    private Button addFoodButton;
+    private Button menuButton,addFoodButton;
+    private TextView homeButton,totalButton,searchButton,formButton,IdTextView;
+
     private LinearLayout menuLayout;
     private boolean menu_Bool=false;
-    private TextView homeButton;
-    private TextView totalButton;
-    private TextView searchButton;
-    private TextView formButton;
-    private TextView IdTextView;
+
     private RecyclerView recyclerView;
+
+    // db_helper
     FEMDatabaseHelper DB;
     // array test
     ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived;
@@ -63,7 +62,7 @@ public class listPageActivity extends Activity {
 
         //儲存data到array等拿出來用
         storeDataToArrays();
-        //啟用goodadapter去拿取
+        //啟用good adapter去拿取
         goodAdapter = new GoodAdapter(listPageActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived);
         recyclerView.setAdapter(goodAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(listPageActivity.this));
@@ -140,7 +139,7 @@ public class listPageActivity extends Activity {
 
     }
     void storeDataToArrays(){
-        Cursor cursor = DB.selectData();
+        Cursor cursor = DB.selectData(1);
         if (cursor.getCount() == 0){
             Toast.makeText(this,"Failed>:(",Toast.LENGTH_SHORT).show();
         }else{
