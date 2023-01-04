@@ -78,7 +78,7 @@ public class dataInsertPageActivity extends Activity {
         Intent intent=getIntent();
         ID=intent.getStringExtra("ID");
         if (ID.equals("NULL")){
-
+            ID="-1";
         }else{
             objType=intent.getStringExtra("objType");
             name=intent.getStringExtra("name");
@@ -295,7 +295,7 @@ public class dataInsertPageActivity extends Activity {
                     if(otherRadioButton.isChecked()) { objType = "otherfood"; classCounter = classCounter + 1; }
                     // if counter correct insert data
                     if(classCounter == 1) {
-                        DB.changeData(-1,
+                        DB.changeData(Integer.parseInt(ID),
                                 objType.trim(),
                                 itemNameEditText.getText().toString().trim(),
                                 tagNameEditText.getText().toString().trim(),
@@ -333,10 +333,16 @@ public class dataInsertPageActivity extends Activity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i=new Intent(dataInsertPageActivity.this,listPageActivity.class);
+                if (ID == "-1") { //取消功能
+                    //取消的頁面我移動到下面
+                }
+                else{//刪除功能
+                    FEMDatabaseHelper DB = new FEMDatabaseHelper(dataInsertPageActivity.this);
+                    DB.deleteData(Integer.parseInt(ID));
+                }
+                Intent i = new Intent(dataInsertPageActivity.this, listPageActivity.class);
                 startActivity(i);
                 finish();
-
             }
         });
 

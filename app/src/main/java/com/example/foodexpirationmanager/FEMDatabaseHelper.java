@@ -73,15 +73,25 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
             result = db.insert(TABLE_NAME, null, cv);
         }
         else {
-            result = db.update(TABLE_NAME,cv,"ID = " + id ,null);
+            //記得自己的column名稱。
+            result = db.update(TABLE_NAME,cv,"_id = " + id ,null);
+            if (result == -1) { result = -2; }
         }
 
         if (result == -1 ){
-            Toast.makeText(context,"Failed>:(",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"insert Failed>:(",Toast.LENGTH_SHORT).show();
+        }
+        else if (result == -2 ){
+            Toast.makeText(context,"update Failed>:(",Toast.LENGTH_SHORT).show();
         }
         else{
             Toast.makeText(context,"YES! :)",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    void deleteData(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, "_id="+id,null);
     }
 
     Cursor selectData(int i){
