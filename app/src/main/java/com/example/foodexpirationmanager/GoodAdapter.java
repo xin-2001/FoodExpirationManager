@@ -196,8 +196,13 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                         number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
                         num_c=1;
                     }
-                    number=number-1;
-                    int text=number;
+                    //當數量剩1時不再減少
+                    if(number==1){
+
+                    }else{
+                        number=number-1;
+                    }
+
                     //↓這行指令為何不動
 
 
@@ -205,7 +210,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                     updateCVMaker(2,number);
                     //Toast toast=Toast.makeText(context,String.valueOf(number),Toast.LENGTH_SHORT);
                     //toast.show();
-                    list_Quantity_TextView.setText(String.valueOf(text));
+                    list_Quantity_TextView.setText(String.valueOf(number));
 
                     //↑的確能更新資料
 
