@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
     private Button menuButton,addFoodButton;
     private TextView homeButton,totalButton,searchButton,formButton;
 
-    private LinearLayout menuLayout;
+    private LinearLayout menuLayout,mainMainLayout;
     private boolean menu_Bool=false;
 
     private RecyclerView recyclerView;
@@ -58,6 +58,7 @@ public class MainActivity extends Activity {
         totalButton=findViewById(R.id.total_Button);
         searchButton=findViewById(R.id.search_Button);
         formButton=findViewById(R.id.form_Button);
+        mainMainLayout=findViewById(R.id.main_MainLinearLayout);
 
         // recyclerView
         recyclerView = findViewById(R.id.home_recycleview);
@@ -157,10 +158,23 @@ public class MainActivity extends Activity {
                     params.width = 1;
                     menuLayout.setLayoutParams(params);
                     menu_Bool=false;
-                    //還要寫一個點其他地方目錄收起來的
+
                 }
 
 
+            }
+        });
+        //點其他地方目錄收起來的
+        mainMainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(menu_Bool==true) {
+                    menuLayout.setTranslationX(-1);
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+                    params.width = 1;
+                    menuLayout.setLayoutParams(params);
+                    menu_Bool = false;
+                }
             }
         });
         addFoodButton.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +187,18 @@ public class MainActivity extends Activity {
             }
         });
 
+    }
+    //重寫上一頁功能
+    public void onBackPressed(){
+        if(menu_Bool==true) {
+            menuLayout.setTranslationX(-1);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+            params.width = 1;
+            menuLayout.setLayoutParams(params);
+            menu_Bool = false;
+        }else{
+            finish();
+        }
     }
     //測試------------------------------------------------
     /*

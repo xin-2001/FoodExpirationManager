@@ -21,7 +21,7 @@ public class listPageActivity extends Activity {
     private Button menuButton,addFoodButton;
     private TextView homeButton,totalButton,searchButton,formButton,IdTextView;
 
-    private LinearLayout menuLayout;
+    private LinearLayout menuLayout,listMainLayout;
     private boolean menu_Bool=false;
 
     private RecyclerView recyclerView;
@@ -48,6 +48,7 @@ public class listPageActivity extends Activity {
         formButton=findViewById(R.id.form_Button);
         recyclerView = findViewById(R.id.list_recycleview);
         IdTextView=findViewById(R.id.ID_TextView);
+        listMainLayout=findViewById(R.id.list_MainLayout);
 
         // DATABASE;
         DB = new FEMDatabaseHelper(listPageActivity.this);
@@ -128,6 +129,19 @@ public class listPageActivity extends Activity {
 
             }
         });
+        //點其他地方目錄收起來的
+        listMainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(menu_Bool==true) {
+                    menuLayout.setTranslationX(-1);
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+                    params.width = 1;
+                    menuLayout.setLayoutParams(params);
+                    menu_Bool = false;
+                }
+            }
+        });
         addFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,9 +180,18 @@ public class listPageActivity extends Activity {
 
     //重寫onBackPressed，禁止手機內建上一頁功能
     public void onBackPressed(){
-        Intent i=new Intent(listPageActivity.this,MainActivity.class);
-        startActivity(i);
-        this.finish();
+        if(menu_Bool==true) {
+            menuLayout.setTranslationX(-1);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+            params.width = 1;
+            menuLayout.setLayoutParams(params);
+            menu_Bool = false;
+        }else{
+            Intent i=new Intent(listPageActivity.this,MainActivity.class);
+            startActivity(i);
+            this.finish();
+        }
+
     }
 
 }

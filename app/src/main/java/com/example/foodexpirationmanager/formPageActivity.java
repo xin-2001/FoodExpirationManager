@@ -22,7 +22,7 @@ import com.android.volley.toolbox.Volley;
 
 public class formPageActivity extends Activity {
 
-    private LinearLayout menuLayout;
+    private LinearLayout menuLayout,formMainLayout;
     private boolean menu_Bool=false;
     private Button menuButton,sentButton;
     private TextView homeButton,totalButton,searchButton,formButton,errorTextView;
@@ -47,6 +47,7 @@ public class formPageActivity extends Activity {
         suggestionRadioButton=findViewById(R.id.suggestionRadioButton);
         userQusContentEditText=findViewById(R.id.userQusContentEditText);
         errorTextView=findViewById(R.id.errorTextView);
+        formMainLayout=findViewById(R.id.form_MainLayout);
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +103,19 @@ public class formPageActivity extends Activity {
                 }
 
 
+            }
+        });
+        //點其他地方目錄收起來的
+        formMainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(menu_Bool==true) {
+                    menuLayout.setTranslationX(-1);
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+                    params.width = 1;
+                    menuLayout.setLayoutParams(params);
+                    menu_Bool = false;
+                }
             }
         });
 
@@ -172,8 +186,17 @@ public class formPageActivity extends Activity {
 
     //重寫onBackPressed，禁止手機內建上一頁功能
     public void onBackPressed(){
-        Intent i=new Intent(formPageActivity.this,MainActivity.class);
-        startActivity(i);
-        this.finish();
+        if(menu_Bool==true) {
+            menuLayout.setTranslationX(-1);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+            params.width = 1;
+            menuLayout.setLayoutParams(params);
+            menu_Bool = false;
+        }else{
+            Intent i=new Intent(formPageActivity.this,MainActivity.class);
+            startActivity(i);
+            this.finish();
+        }
+
     }
 }

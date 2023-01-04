@@ -25,7 +25,7 @@ import java.util.Objects;
 public class dataInsertPageActivity extends Activity {
     //選單
     private Button menuButton;
-    private LinearLayout menuLayout;
+    private LinearLayout menuLayout,dataInsertLayout;
     private boolean menu_Bool=false;
     private TextView homeButton,totalButton,searchButton,formButton;
     //類別選擇
@@ -82,6 +82,7 @@ public class dataInsertPageActivity extends Activity {
         drinkPhotoTextView=findViewById(R.id.drink_Photo_TextView);
         saucePhotoTextView=findViewById(R.id.sauce_Photo_TextView);
         otherPhotoTextView=findViewById(R.id.other_Photo_TextView);
+        dataInsertLayout=findViewById(R.id.dataInsert_MainLinearLayout);
 
         //類別預設選取
         //foodRadioButton.setChecked(true);
@@ -175,6 +176,19 @@ public class dataInsertPageActivity extends Activity {
                 }
 
 
+            }
+        });
+        //點其他地方目錄收起來的
+        dataInsertLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(menu_Bool==true) {
+                    menuLayout.setTranslationX(-1);
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+                    params.width = 1;
+                    menuLayout.setLayoutParams(params);
+                    menu_Bool = false;
+                }
             }
         });
         //類別選擇
@@ -443,9 +457,18 @@ public class dataInsertPageActivity extends Activity {
 
     //重寫onBackPressed，禁止手機內建上一頁功能
     public void onBackPressed(){
-        Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
-        startActivity(i);
-        this.finish();
+        if(menu_Bool==true) {
+            menuLayout.setTranslationX(-1);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+            params.width = 1;
+            menuLayout.setLayoutParams(params);
+            menu_Bool = false;
+        }else{
+            Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
+            startActivity(i);
+            this.finish();
+        }
+
     }
 
 }

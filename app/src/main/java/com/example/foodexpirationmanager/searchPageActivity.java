@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 public class searchPageActivity extends Activity {
     private Button menuButton;
-    private LinearLayout menuLayout;
+    private LinearLayout menuLayout,searchMainLayout;
     private boolean menu_Bool=false;
     private TextView homeButton;
     private TextView totalButton;
@@ -62,6 +62,7 @@ public class searchPageActivity extends Activity {
         sauceCheckBox=findViewById(R.id.sauce_CheckBox);
         dessertCheckBox=findViewById(R.id.dessert_CheckBox);
         otherCheckBox=findViewById(R.id.other_CheckBox);
+        searchMainLayout=findViewById(R.id.search_MainLayout);
 
         //選單
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -118,6 +119,19 @@ public class searchPageActivity extends Activity {
 
             }
         });
+        //點其他地方目錄收起來的
+        searchMainLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(menu_Bool==true) {
+                    menuLayout.setTranslationX(-1);
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+                    params.width = 1;
+                    menuLayout.setLayoutParams(params);
+                    menu_Bool = false;
+                }
+            }
+        });
 
         //到期日的單選
         dateDistanceRadioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -140,8 +154,16 @@ public class searchPageActivity extends Activity {
     }
     //重寫onBackPressed，禁止手機內建上一頁功能
     public void onBackPressed(){
-        Intent i=new Intent(searchPageActivity.this,MainActivity.class);
-        startActivity(i);
-        this.finish();
+        if(menu_Bool==true) {
+            menuLayout.setTranslationX(-1);
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) menuLayout.getLayoutParams();
+            params.width = 1;
+            menuLayout.setLayoutParams(params);
+            menu_Bool = false;
+        }else {
+            Intent i = new Intent(searchPageActivity.this, MainActivity.class);
+            startActivity(i);
+            this.finish();
+        }
     }
 }
