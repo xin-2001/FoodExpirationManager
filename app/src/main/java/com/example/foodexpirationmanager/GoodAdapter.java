@@ -26,6 +26,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
     FEMDatabaseHelper DB_helper;
     private final Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+    int number=0,num_c=0;
     //public String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
     //listener for archive
     //private OnItemClickListener aListener;
@@ -175,15 +176,23 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             sub1Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    int number;
-                    number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
+                    //這東西怎麼get都是舊的num
+                    if (num_c == 0) {
+                        number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
+                        num_c=1;
+                    }
                     number=number-1;
-                    //list_Quantity_TextView.setText(String.valueOf(number));
-                    //i = 2 num要減少1
+                    //↓這行指令為何不動
+
+
+
+                    //↓的確能更新資料
                     updateCVMaker(2,number);
-                    //number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
-                    list_Quantity_TextView.setText(String.valueOf(number));
-                    //這裡要同步刷新資料庫中的資料
+                    //↑的確能更新資料
+                    //這裡要同步刷新資料庫中的資料(同步過去了)
+
+                    //如何刷新頁面
+
                 }
             });
             //封存
@@ -205,7 +214,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         }
 
         //FEM裡頭的東西搬過來用 changeData
-        //@SuppressLint("NotifyDataSetChanged")
+        @SuppressLint("NotifyDataSetChanged")
         private void updateCVMaker(int i , int number) {
             //aListener.onItemClick(getAdapterPosition());
             //ID,objType,name,tag,buyDate,expiration,num,ps,archived
@@ -240,6 +249,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                 cv.put("num",Integer.valueOf(NUM.trim()));
             }else{
                 cv.put("num",number);
+                
             }
             cv.put("ps", PS.trim());
             if (i == 1){
@@ -254,6 +264,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
 
             //刷新
             notifyDataSetChanged();
+
         }
     }
 }

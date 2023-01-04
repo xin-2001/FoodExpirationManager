@@ -103,7 +103,7 @@ public class MainActivity extends Activity {
         //recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        recyclerView.setAdapter(greatAdapter);
+        //recyclerView.setAdapter(greatAdapter);
 
 
 
@@ -218,6 +218,7 @@ public class MainActivity extends Activity {
     //測試------------------------------------------------
 
     void storeDataToArrays(){
+        //sql select
         Cursor cursor = DB.selectData(2);
         if (cursor.getCount() == 0){
             Toast.makeText(this,"no 7 days limit",Toast.LENGTH_SHORT).show();
