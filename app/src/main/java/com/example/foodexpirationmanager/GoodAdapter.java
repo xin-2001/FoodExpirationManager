@@ -3,13 +3,16 @@ package com.example.foodexpirationmanager;
 //import static androidx.core.graphics.drawable.IconCompat.getResources;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -20,9 +23,25 @@ import java.util.ArrayList;
 //超讚處理器
 public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder> {
 
+    FEMDatabaseHelper DB_helper;
     private final Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+    public String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+    //listener for archive
+    //private OnItemClickListener aListener;
 
+    //interface
+    /*
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+    */
+
+    /*
+    public void setOnItemClickListener(OnItemClickListener clickListener){
+        aListener = clickListener;
+    }
+    */
 
     GoodAdapter(Context context,
                 ArrayList ID,
@@ -61,6 +80,18 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
 
     public void onBindViewHolder(@NonNull GoodAdapter.DataViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //holder.list_photo_TextView.setText(String.valueOf(objType.get(position)));
+        //id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+        //ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+        //position
+        id = String.valueOf(ID.get(position));
+        OTYPE = String.valueOf(objType.get(position));
+        NAME = String.valueOf(name.get(position));
+        TAG = String.valueOf(tag.get(position));
+        BD = String.valueOf(buyDate.get(position));
+        EXPD = String.valueOf(expiration.get(position));
+        NUM = String.valueOf(num.get(position));
+        PS = String.valueOf(ps.get(position));
+
         String photo;
         int[] sort_images;
         int photo_num=0;
@@ -75,6 +106,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         if(photo.equals("otherfoodicon"))photo_num=4;
         if(photo.equals("drink"))photo_num=5;
 
+
         //holder.list_photo_TextView.setText(String.valueOf(objType.get(position)));
         holder.list_photo_TextView.setBackground(ContextCompat.getDrawable(context.getApplicationContext(), sort_images[photo_num]));
         holder.list_Name_TextView.setText(String.valueOf(name.get(position)));
@@ -86,7 +118,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
 
 
         //為什麼這個new onclick不會亮阿
-        //item的點擊事件
+        //item的點擊事件 跨頁傳資料
         holder.itemView.setOnClickListener (new View.OnClickListener () {
             @Override
             public void onClick (View view) {
@@ -119,7 +151,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         TextView list_photo_TextView,list_Name_TextView,list_Quantity_TextView,
                 list_ShopDate_TextView,list_Effectivedate_TextView,list_Tag_TextView,list_ps_TextView;
         private View goodView;
-        private Button sub1Button,deleteButton;
+        private Button sub1Button, archiveButton;
 
         public DataViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -132,8 +164,11 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             list_ps_TextView=itemView.findViewById(R.id.list_ps_TextView);
             goodView=itemView;
             sub1Button=itemView.findViewById(R.id.sub1_Button);
-            deleteButton=itemView.findViewById(R.id.delete_Button);
+            archiveButton=itemView.findViewById(R.id.archive_Button);
 
+            //將delete改成archive
+
+            //減1
             sub1Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -144,10 +179,34 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                     //這裡要同步刷新資料庫中的資料
                 }
             });
-            deleteButton.setOnClickListener(new View.OnClickListener() {
+            //封存
+            archiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //刪除資料
+                    //aListener.onItemClick(getAdapterPosition());
+
+                    //測試看看直接寫在這裡能不能動
+                    DB_helper = new FEMDatabaseHelper(context);
+                    SQLiteDatabase db = DB_helper.getWritableDatabase();
+                    //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+                    //id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+
+                    ContentValues cv = new ContentValues();
+                    cv.put("_id", Integer.valueOf(id.trim()));
+                    cv.put("objType", OTYPE.trim());
+                    cv.put("name", NAME.trim());
+                    cv.put("tag", TAG.trim());
+                    cv.put("buyDate", BD.trim());
+                    cv.put("expiration", EXPD.trim());
+                    cv.put("num",Integer.valueOf(NUM.trim()));
+                    cv.put("ps", PS.trim());
+                    cv.put("archived",1);
+
+                    db.update("food",cv,"_id = " + Integer.valueOf(id.trim()) ,null);
+                    //哦不:(
+
+
+
                 }
             });
 

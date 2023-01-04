@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -31,7 +32,7 @@ public class listPageActivity extends Activity {
     ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived;
     GoodAdapter goodAdapter;
     // array test
-    ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
+    //ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,9 @@ public class listPageActivity extends Activity {
         goodAdapter = new GoodAdapter(listPageActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived);
         recyclerView.setAdapter(goodAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(listPageActivity.this));
+
+
+
 
         //目錄頁
         homeButton.setOnClickListener(new View.OnClickListener() {
