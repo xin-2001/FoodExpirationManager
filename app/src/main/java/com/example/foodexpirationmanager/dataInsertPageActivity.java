@@ -85,13 +85,10 @@ public class dataInsertPageActivity extends Activity {
 
         //類別預設選取
         //foodRadioButton.setChecked(true);
-        drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-        saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+        initBG();
         foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
-        freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-        dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-        otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
         sort_now="deli";
+
         //接收資料
         Intent intent=getIntent();
         ID=intent.getStringExtra("ID");
@@ -107,60 +104,10 @@ public class dataInsertPageActivity extends Activity {
             num=intent.getStringExtra("num");
             ps=intent.getStringExtra("ps");
             archived=intent.getStringExtra("archived");
-            if(objType.equals("drink")){
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink_picked));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
-                sort_now="drink";
-            }
-            if(objType.equals("deli")){
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
-                sort_now="deli";
-            }
-            if(objType.equals("dessert")){
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert_picked));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
-                sort_now="dessert";
-            }
-            if(objType.equals("sauce")){
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce_picked));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
-                sort_now="sauce";
-            }
-            if(objType.equals("freshfood")){
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood_picked));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
-                sort_now="freshfood";
-            }
-            if(objType.equals("otherfoodicon")){
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon_picked));
-                sort_now="otherfoodicon";
-            }
+
+            //類型辨識
+            typeDetector();
+
             itemNameEditText.setText(name);
             tagNameEditText.setText(tag);
             quantityEditText.setText(num);
@@ -234,71 +181,47 @@ public class dataInsertPageActivity extends Activity {
         drinkRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                initBG();
                 drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink_picked));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
                 sort_now="drink";
             }
         });
         sauceRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                initBG();
                 saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce_picked));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
                 sort_now="sauce";
             }
         });
         foodRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                initBG();
                 foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
                 sort_now="deli";
             }
         });
         freshRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                initBG();
                 freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood_picked));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
                 sort_now="freshfood";
             }
         });
         dessertRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                initBG();
                 dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert_picked));
-                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
                 sort_now="dessert";
             }
         });
         otherRadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
-                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                initBG();
                 otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon_picked));
                 sort_now="otherfoodicon";
             }
@@ -473,6 +396,51 @@ public class dataInsertPageActivity extends Activity {
 
 
     }
+
+    //類別辨識
+    //上面程式碼太長，移來下面
+    private void typeDetector() {
+        if(objType.equals("drink")){
+            initBG();
+            drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink_picked));
+            sort_now="drink";
+        }
+        if(objType.equals("deli")){
+            initBG();
+            foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
+            sort_now="deli";
+        }
+        if(objType.equals("dessert")){
+            initBG();dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert_picked));
+            sort_now="dessert";
+        }
+        if(objType.equals("sauce")){
+            initBG();
+            saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce_picked));
+            sort_now="sauce";
+        }
+        if(objType.equals("freshfood")){
+            initBG();
+            freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood_picked));
+            sort_now="freshfood";
+        }
+        if(objType.equals("otherfoodicon")){
+            initBG();
+            otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon_picked));
+            sort_now="otherfoodicon";
+        }
+    }
+
+    //讓全部類別都回歸未被選取
+    private void initBG() {
+        drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+        saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+        foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+        freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+        dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+        otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+    }
+
     //重寫onBackPressed，禁止手機內建上一頁功能
     public void onBackPressed(){
         Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);

@@ -113,12 +113,9 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         //holder.list_photo_TextView.setText(String.valueOf(objType.get(position)));
         holder.list_photo_TextView.setBackground(ContextCompat.getDrawable(context.getApplicationContext(), sort_images[photo_num]));
         holder.list_Name_TextView.setText(String.valueOf(name.get(position)));
-        holder.list_Quantity_TextView.setText("數　　量：");
-        holder.list_Quantity_TextView.append(String.valueOf(num.get(position)));
-        holder.list_ShopDate_TextView.setText("購買日期：");
-        holder.list_ShopDate_TextView.append(String.valueOf(buyDate.get(position)));
-        holder.list_Effectivedate_TextView.setText("有效日期：");
-        holder.list_Effectivedate_TextView.append(String.valueOf(expiration.get(position)));
+        holder.list_Quantity_TextView.setText(String.valueOf(num.get(position)));
+        holder.list_ShopDate_TextView.setText(String.valueOf(buyDate.get(position)));
+        holder.list_Effectivedate_TextView.setText(String.valueOf(expiration.get(position)));
         holder.list_Tag_TextView.setText(String.valueOf(tag.get(position)));
         holder.list_ps_TextView.setText(String.valueOf(ps.get(position)));
 
@@ -173,44 +170,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             archiveButton=itemView.findViewById(R.id.archive_Button);
 
             //將delete改成archive
-            /*
-            public void updateCVMaker(){
-                //aListener.onItemClick(getAdapterPosition());
-                //ID,objType,name,tag,buyDate,expiration,num,ps,archived
 
-                //取得item的內容
-                String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
-                id = String.valueOf(ID.get(getAdapterPosition()));
-                OTYPE = String.valueOf(objType.get(getAdapterPosition()));
-                NAME = String.valueOf(name.get(getAdapterPosition()));
-                TAG = String.valueOf(tag.get(getAdapterPosition()));
-                BD = String.valueOf(buyDate.get(getAdapterPosition()));
-                EXPD = String.valueOf(expiration.get(getAdapterPosition()));
-                NUM = String.valueOf(num.get(getAdapterPosition()));
-                PS = String.valueOf(ps.get(getAdapterPosition()));
-
-
-                //測試看看直接寫在這裡能不能動
-                DB_helper = new FEMDatabaseHelper(context);
-                SQLiteDatabase db = DB_helper.getWritableDatabase();
-                //ID,objType,name,tag,buyDate,expiration,num,ps,archived
-                //id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
-
-                ContentValues cv = new ContentValues();
-                cv.put("_id", Integer.valueOf(id.trim()));
-                cv.put("objType", OTYPE.trim());
-                cv.put("name", NAME.trim());
-                cv.put("tag", TAG.trim());
-                cv.put("buyDate", BD.trim());
-                cv.put("expiration", EXPD.trim());
-                cv.put("num",Integer.valueOf(NUM.trim()));
-                cv.put("ps", PS.trim());
-                cv.put("archived",1);
-
-                db.update("food",cv,"_id = " + Integer.valueOf(id.trim()) ,null);
-                //oh YES :(
-            }
-            */
             //減1
             sub1Button.setOnClickListener(new View.OnClickListener() {
                 @Override
