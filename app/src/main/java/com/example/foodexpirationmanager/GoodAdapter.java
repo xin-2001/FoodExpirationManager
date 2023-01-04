@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -185,12 +186,16 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                     //↓這行指令為何不動
 
 
-
                     //↓的確能更新資料
                     updateCVMaker(2,number);
                     //↑的確能更新資料
+
+                    //toast報錯
+                    Toast toast=Toast.makeText(context,String.valueOf(number),Toast.LENGTH_SHORT);
+                    toast.show();
                     //這裡要同步刷新資料庫中的資料(同步過去了)
 
+                    selectData(1);
                     //如何刷新頁面
 
                 }
@@ -206,12 +211,56 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         }
 
         //FEM裡頭的東西搬過來用 selectData
-        private void selectData(int i ,int number) {
+        private void selectData(int i ) {
+            //清空arraylist
+            //ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+            ID.clear();
+            objType.clear();
+            name.clear();
+            tag.clear();
+            buyDate.clear();
+            expiration.clear();
+            num.clear();
+            ps.clear();
+            archived.clear();
+            //清空arraylist
             String SQL1 = "SELECT * FROM food"
                     //+ " WHERE archived =  0"
                     + " ORDER BY archived ASC ,"
                     + " expiration" + " ASC";
-        }
+            DB_helper = new FEMDatabaseHelper(context);
+            SQLiteDatabase db = DB_helper.getReadableDatabase();
+            Cursor cursor = null;
+            if(db!=null){
+                if (i == 1){
+                    cursor = db.rawQuery(SQL1, null);
+                }
+            }
+            if (cursor.getCount() == 0){
+                Toast toast=Toast.makeText(context,"ohnyo!",Toast.LENGTH_SHORT);
+                toast.show();
+            }else{
+                    //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+                while(cursor.moveToNext()){
+                    ID.add(cursor.getString(0));
+                    objType.add(cursor.getString(1));
+                    name.add(cursor.getString(2));
+                    tag.add(cursor.getString(3));
+                    buyDate.add(cursor.getString(4));
+                    expiration.add(cursor.getString(5));
+                    num.add(cursor.getString(6));
+                    ps.add(cursor.getString(7));
+                    archived.add(cursor.getString(8));
+                }
+
+                Toast toast=Toast.makeText(context,"well done!",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            }
+
+
+
 
         //FEM裡頭的東西搬過來用 changeData
         @SuppressLint("NotifyDataSetChanged")
@@ -249,7 +298,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                 cv.put("num",Integer.valueOf(NUM.trim()));
             }else{
                 cv.put("num",number);
-                
+
             }
             cv.put("ps", PS.trim());
             if (i == 1){
