@@ -15,6 +15,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.core.content.ContextCompat;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -27,9 +29,12 @@ public class dataInsertPageActivity extends Activity {
     private boolean menu_Bool=false;
     private TextView homeButton,totalButton,searchButton,formButton;
     //類別選擇
-    private RadioGroup sort1RadioGroup,sort2RadioGroup;
-    private RadioButton drinkRadioButton,dessertRadioButton,freshRadioButton;
-    private RadioButton foodRadioButton,sauceRadioButton,otherRadioButton;
+    private LinearLayout sort1RadioGroup,sort2RadioGroup;
+    private LinearLayout drinkRadioButton,dessertRadioButton,freshRadioButton;
+    private LinearLayout foodRadioButton,sauceRadioButton,otherRadioButton;
+    private TextView foodPhotoTextView,dessertPhotoTextView,freshPhotoTextView;
+    private TextView drinkPhotoTextView,saucePhotoTextView,otherPhotoTextView;
+    private String sort_now;
     //驗證控制項
     private EditText itemNameEditText,tagNameEditText,quantityEditText,noteEditText;
     private TextView quantAddTextView,quantSubTextView,shopDateTextView,effectiveDateTextView;
@@ -71,9 +76,22 @@ public class dataInsertPageActivity extends Activity {
         sentButton=findViewById(R.id.sent_Button);
         starErrorTextView=findViewById(R.id.star_error_TextView);
         cancelButton=findViewById(R.id.cancel_Button);
+        foodPhotoTextView=findViewById(R.id.food_Photo_TextView);
+        dessertPhotoTextView=findViewById(R.id.dessert_Photo_TextView);
+        freshPhotoTextView=findViewById(R.id.fresh_Photo_TextView);
+        drinkPhotoTextView=findViewById(R.id.drink_Photo_TextView);
+        saucePhotoTextView=findViewById(R.id.sauce_Photo_TextView);
+        otherPhotoTextView=findViewById(R.id.other_Photo_TextView);
 
         //類別預設選取
-        foodRadioButton.setChecked(true);
+        //foodRadioButton.setChecked(true);
+        drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+        saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+        foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
+        freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+        dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+        otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+        sort_now="deli";
         //接收資料
         Intent intent=getIntent();
         ID=intent.getStringExtra("ID");
@@ -90,40 +108,58 @@ public class dataInsertPageActivity extends Activity {
             ps=intent.getStringExtra("ps");
             archived=intent.getStringExtra("archived");
             if(objType.equals("drink")){
-                drinkRadioButton.setChecked(true);
-                foodRadioButton.setChecked(false);
-                dessertRadioButton.setChecked(false);
-                freshRadioButton.setChecked(false);
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink_picked));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="drink";
             }
             if(objType.equals("deli")){
-                foodRadioButton.setChecked(true);
-                drinkRadioButton.setChecked(false);
-                sauceRadioButton.setChecked(false);
-                otherRadioButton.setChecked(false);
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="deli";
             }
             if(objType.equals("dessert")){
-                dessertRadioButton.setChecked(true);
-                drinkRadioButton.setChecked(false);
-                sauceRadioButton.setChecked(false);
-                otherRadioButton.setChecked(false);
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert_picked));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="dessert";
             }
             if(objType.equals("sauce")){
-                sauceRadioButton.setChecked(true);
-                foodRadioButton.setChecked(false);
-                dessertRadioButton.setChecked(false);
-                freshRadioButton.setChecked(false);
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce_picked));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="sauce";
             }
             if(objType.equals("freshfood")){
-                freshRadioButton.setChecked(true);
-                drinkRadioButton.setChecked(false);
-                sauceRadioButton.setChecked(false);
-                otherRadioButton.setChecked(false);
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood_picked));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="freshfood";
             }
             if(objType.equals("otherfoodicon")){
-                otherRadioButton.setChecked(true);
-                foodRadioButton.setChecked(false);
-                dessertRadioButton.setChecked(false);
-                freshRadioButton.setChecked(false);
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon_picked));
+                sort_now="otherfoodicon";
             }
             itemNameEditText.setText(name);
             tagNameEditText.setText(tag);
@@ -131,6 +167,7 @@ public class dataInsertPageActivity extends Activity {
             shopDateTextView.setText(buyDate);
             effectiveDateTextView.setText(expiration);
             noteEditText.setText(ps);
+            dateChecked=1;
         }
 
 
@@ -194,7 +231,79 @@ public class dataInsertPageActivity extends Activity {
             }
         });
         //類別選擇
-        sort1RadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        drinkRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink_picked));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="drink";
+            }
+        });
+        sauceRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce_picked));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="sauce";
+            }
+        });
+        foodRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="deli";
+            }
+        });
+        freshRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood_picked));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="freshfood";
+            }
+        });
+        dessertRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert_picked));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                sort_now="dessert";
+            }
+        });
+        otherRadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli));
+                freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon_picked));
+                sort_now="otherfoodicon";
+            }
+        });
+        /*sort1RadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
                 drinkRadioButton.setChecked(false);
@@ -209,7 +318,7 @@ public class dataInsertPageActivity extends Activity {
                 dessertRadioButton.setChecked(false);
                 freshRadioButton.setChecked(false);
             }
-        });
+        });*/
         //數量增減
         quantSubTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -238,11 +347,13 @@ public class dataInsertPageActivity extends Activity {
                 calendar.set(Calendar.MONTH, monthOfYear);
                 calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
                 String myFormat = "yyyy-MM-dd";
+                String myFormat2 = "yyyy-MM-dd";
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.TAIWAN);
+                SimpleDateFormat sdf2 = new SimpleDateFormat(myFormat2, Locale.TAIWAN);
                 if(dateChoose==1){
                     shopDateTextView.setText(sdf.format(calendar.getTime()));
                 }else if(dateChoose==2){
-                    effectiveDateTextView.setText(sdf.format(calendar.getTime()));
+                    effectiveDateTextView.setText(sdf2.format(calendar.getTime()));
                     dateChecked=1;
                 }
 
@@ -278,22 +389,23 @@ public class dataInsertPageActivity extends Activity {
         sentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!itemNameEditText.getText().toString().isEmpty() && dateChecked!=0){
+                if(!itemNameEditText.getText().toString().isEmpty() && dateChecked!=0 && !(quantityEditText.getText().toString() =="0")){
                     starErrorTextView.setTextColor(Color.rgb(170,170,170));
 
 
                     //送出新增資訊
                     FEMDatabaseHelper DB = new FEMDatabaseHelper(dataInsertPageActivity.this);
                     String objType = "";
-                    int classCounter = 0 ;
+                    int classCounter = 1 ;
+                    objType=sort_now;
 
                     // if radiobutton==true
-                    if(freshRadioButton.isChecked()) { objType = "freshfood"; classCounter = classCounter + 1; }
+                    /*if(freshRadioButton.isChecked()) { objType = "freshfood"; classCounter = classCounter + 1; }
                     if(foodRadioButton.isChecked()) { objType = "deli"; classCounter = classCounter + 1; }
                     if(drinkRadioButton.isChecked()) { objType = "drink"; classCounter = classCounter + 1; }
                     if(dessertRadioButton.isChecked()) { objType = "dessert"; classCounter = classCounter + 1; }
                     if(sauceRadioButton.isChecked()) { objType = "sauce"; classCounter = classCounter + 1; }
-                    if(otherRadioButton.isChecked()) { objType = "otherfood"; classCounter = classCounter + 1; }
+                    if(otherRadioButton.isChecked()) { objType = "otherfood"; classCounter = classCounter + 1; }*/
                     // if counter correct insert data
                     if(classCounter == 1) {
                         DB.changeData(Integer.parseInt(ID),
@@ -311,7 +423,13 @@ public class dataInsertPageActivity extends Activity {
 
 
                     //清除目前資料
-                    drinkRadioButton.isChecked();
+                    drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                    saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
+                    foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
+                    freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
+                    dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
+                    otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
+                    sort_now="deli";
                     itemNameEditText.setText("");
                     tagNameEditText.setText("");
                     quantityEditText.setText("1");
@@ -323,14 +441,15 @@ public class dataInsertPageActivity extends Activity {
                     noteEditText.setText("");
                     Toast toast=Toast.makeText(getApplicationContext(),"新增成功",Toast.LENGTH_SHORT);
                     toast.show();
+                    Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
+                    startActivity(i);
+                    finish();
 
 
                 }else{
                     starErrorTextView.setTextColor(Color.rgb(255,0,0));
                 }
-                Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
-                startActivity(i);
-                finish();
+
             }
         });
 

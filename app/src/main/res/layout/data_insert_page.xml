@@ -101,69 +101,177 @@
                 android:orientation="vertical"
                 android:gravity="left">
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="left"
-                    android:layout_marginTop="20dp">
-                    <TextView
+                    android:layout_gravity="center">
+                    <!--TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="*類別："
                         android:textSize="50px"
-                        android:layout_marginTop="3dp"/>
+                        android:layout_marginTop="30dp"/-->
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:gravity="left">
-                        <RadioGroup
+                        <LinearLayout
                             android:id="@+id/sort1_RadioGroup"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="left">
-                            <RadioButton
+                            <!--RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="熟食"/-->
+                            <LinearLayout
                                 android:id="@+id/food_RadioButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:layout_margin="5dp">
+                                <TextView
+                                    android:id="@+id/food_Photo_TextView"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:background="@drawable/deli"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="熟食"/>
+                            </LinearLayout>
+                            <!--RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="熟食"/>
-                            <RadioButton
+                                android:text="點心"/-->
+                            <LinearLayout
                                 android:id="@+id/dessert_RadioButton"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="1"
+                                android:gravity="center_horizontal"
+                                android:layout_margin="5dp">
+                                <TextView
+                                    android:id="@+id/dessert_Photo_TextView"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:background="@drawable/dessert"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="甜點"/>
+                            </LinearLayout>
+                            <!--RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="點心"/>
-                            <RadioButton
+                                android:text="生鮮"/-->
+                            <LinearLayout
                                 android:id="@+id/fresh_RadioButton"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="生鮮"/>
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal"
+                                android:layout_margin="5dp">
+                                <TextView
+                                    android:id="@+id/fresh_Photo_TextView"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:background="@drawable/freshfood"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="生鮮"/>
+                            </LinearLayout>
 
-                        </RadioGroup>
-                        <RadioGroup
+                        </LinearLayout>
+                        <LinearLayout
                             android:id="@+id/sort2_RadioGroup"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="left">
-                            <RadioButton
+                            <!--RadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="飲料"/-->
+                            <LinearLayout
                                 android:id="@+id/drink_RadioButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal"
+                                android:layout_margin="5dp">
+                                <TextView
+                                    android:id="@+id/drink_Photo_TextView"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:background="@drawable/drink"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="飲料"/>
+                            </LinearLayout>
+
+                            <!--RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="飲料"/>
-
-                            <RadioButton
+                                android:text="醬料"/-->
+                            <LinearLayout
                                 android:id="@+id/sauce_RadioButton"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal"
+                                android:layout_margin="5dp">
+                                <TextView
+                                    android:id="@+id/sauce_Photo_TextView"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:background="@drawable/sauce"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="2dp"
+                                    android:text="醬料"/>
+                            </LinearLayout>
+                            <!--RadioButton
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="醬料"/>
-                            <RadioButton
+                                android:text="其他"/-->
+                            <LinearLayout
                                 android:id="@+id/other_RadioButton"
-                                android:layout_width="wrap_content"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
                                 android:layout_height="wrap_content"
-                                android:text="其他"/>
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal"
+                                android:layout_margin="5dp">
+                                <TextView
+                                    android:id="@+id/other_Photo_TextView"
+                                    android:layout_width="60dp"
+                                    android:layout_height="60dp"
+                                    android:background="@drawable/otherfoodicon"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="其他"
+                                    android:layout_marginTop="2dp"/>
+                            </LinearLayout>
 
-                        </RadioGroup>
+
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
                 <LinearLayout

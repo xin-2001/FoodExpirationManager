@@ -44,19 +44,43 @@
                     android:textSize="40px" />
 
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="left">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="購買日期："
+                    android:textSize="40px" />
+                <TextView
+                    android:id="@+id/list_ShopDate_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="40px" />
 
-            <TextView
-                android:id="@+id/list_ShopDate_TextView"
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="購買日期："
-                android:textSize="40px" />
-            <TextView
-                android:id="@+id/list_Effectivedate_TextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="有效日期："
-                android:textSize="40px"/>
+                android:orientation="horizontal"
+                android:gravity="left">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="有效日期："
+                    android:textSize="40px" />
+                <TextView
+                    android:id="@+id/list_Effectivedate_TextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="40px"/>
+
+            </LinearLayout>
+
+
             <TextView
                 android:id="@+id/list_Tag_TextView"
                 android:layout_width="wrap_content"
