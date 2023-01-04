@@ -26,7 +26,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
     FEMDatabaseHelper DB_helper;
     private final Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
-    public String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+    //public String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
     //listener for archive
     //private OnItemClickListener aListener;
 
@@ -83,6 +83,8 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         //id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
         //ID,objType,name,tag,buyDate,expiration,num,ps,archived;
         //position
+
+        /*
         id = String.valueOf(ID.get(position));
         OTYPE = String.valueOf(objType.get(position));
         NAME = String.valueOf(name.get(position));
@@ -91,6 +93,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         EXPD = String.valueOf(expiration.get(position));
         NUM = String.valueOf(num.get(position));
         PS = String.valueOf(ps.get(position));
+        */
 
         String photo;
         int[] sort_images;
@@ -184,6 +187,19 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                 @Override
                 public void onClick(View view) {
                     //aListener.onItemClick(getAdapterPosition());
+                    //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+
+                    //取得item的內容
+                    String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+                    id = String.valueOf(ID.get(getAdapterPosition()));
+                    OTYPE = String.valueOf(objType.get(getAdapterPosition()));
+                    NAME = String.valueOf(name.get(getAdapterPosition()));
+                    TAG = String.valueOf(tag.get(getAdapterPosition()));
+                    BD = String.valueOf(buyDate.get(getAdapterPosition()));
+                    EXPD = String.valueOf(expiration.get(getAdapterPosition()));
+                    NUM = String.valueOf(num.get(getAdapterPosition()));
+                    PS = String.valueOf(ps.get(getAdapterPosition()));
+
 
                     //測試看看直接寫在這裡能不能動
                     DB_helper = new FEMDatabaseHelper(context);
