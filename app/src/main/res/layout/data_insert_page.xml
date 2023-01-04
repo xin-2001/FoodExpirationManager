@@ -418,7 +418,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
-                    android:text="送出"
+                    android:text="儲存"
                     android:textSize="50px"
                     android:background="#F2B263"/>
                 <Button

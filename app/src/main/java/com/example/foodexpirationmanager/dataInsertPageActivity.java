@@ -96,7 +96,9 @@ public class dataInsertPageActivity extends Activity {
         if (ID.equals("NULL")){
             ID="-1";
             archived = "0";
+            cancelButton.setText("取消");
         }else{
+            cancelButton.setText("刪除");
             objType=intent.getStringExtra("objType");
             name=intent.getStringExtra("name");
             tag=intent.getStringExtra("tag");
@@ -240,22 +242,7 @@ public class dataInsertPageActivity extends Activity {
                 sort_now="otherfoodicon";
             }
         });
-        /*sort1RadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                drinkRadioButton.setChecked(false);
-                sauceRadioButton.setChecked(false);
-                otherRadioButton.setChecked(false);
-            }
-        });
-        sort2RadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                foodRadioButton.setChecked(false);
-                dessertRadioButton.setChecked(false);
-                freshRadioButton.setChecked(false);
-            }
-        });*/
+
         //數量增減
         quantSubTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -336,13 +323,7 @@ public class dataInsertPageActivity extends Activity {
                     int classCounter = 1 ;
                     objType=sort_now;
 
-                    // if radiobutton==true
-                    /*if(freshRadioButton.isChecked()) { objType = "freshfood"; classCounter = classCounter + 1; }
-                    if(foodRadioButton.isChecked()) { objType = "deli"; classCounter = classCounter + 1; }
-                    if(drinkRadioButton.isChecked()) { objType = "drink"; classCounter = classCounter + 1; }
-                    if(dessertRadioButton.isChecked()) { objType = "dessert"; classCounter = classCounter + 1; }
-                    if(sauceRadioButton.isChecked()) { objType = "sauce"; classCounter = classCounter + 1; }
-                    if(otherRadioButton.isChecked()) { objType = "otherfood"; classCounter = classCounter + 1; }*/
+
                     // if counter correct insert data
                     if(classCounter == 1) {
                         DB.changeData(Integer.parseInt(ID),
@@ -364,23 +345,7 @@ public class dataInsertPageActivity extends Activity {
                     finish();
 
 
-                    //清除目前資料
-                    /*drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
-                    saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
-                    foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
-                    freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
-                    dessertPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.dessert));
-                    otherPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.otherfoodicon));
-                    sort_now="deli";
-                    itemNameEditText.setText("");
-                    tagNameEditText.setText("");
-                    quantityEditText.setText("1");
-                    shopDateTextView.setHint("選擇日期");
-                    shopDateTextView.setText("");
-                    effectiveDateTextView.setHint("選擇日期");
-                    effectiveDateTextView.setText("");
-                    dateChecked=0;
-                    noteEditText.setText("");*/
+
 
 
 
