@@ -9,6 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +48,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         this.archived = archived;
 
     }
+
 
     @NonNull
     @Override
@@ -116,6 +118,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         TextView list_photo_TextView,list_Name_TextView,list_Quantity_TextView,
                 list_ShopDate_TextView,list_Effectivedate_TextView,list_Tag_TextView,list_ps_TextView;
         private View goodView;
+        private Button sub1Button,deleteButton;
 
         public DataViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -127,6 +130,26 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             list_Tag_TextView = itemView.findViewById(R.id.list_Tag_TextView);
             list_ps_TextView=itemView.findViewById(R.id.list_ps_TextView);
             goodView=itemView;
+            sub1Button=itemView.findViewById(R.id.sub1_Button);
+            deleteButton=itemView.findViewById(R.id.delete_Button);
+
+            sub1Button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int number;
+                    number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
+                    number=number-1;
+                    list_Quantity_TextView.setText(String.valueOf(number));
+                    //這裡要同步刷新資料庫中的資料
+                }
+            });
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //刪除資料
+                }
+            });
+
         }
     }
 }
