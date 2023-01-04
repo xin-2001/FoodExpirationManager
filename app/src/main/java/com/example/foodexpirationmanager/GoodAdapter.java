@@ -27,7 +27,8 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
     FEMDatabaseHelper DB_helper;
     private final Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
-    int number=0,num_c=0;
+    int number=0,num_c=0,num_id_c=0;
+    private String num_id1,num_id2;
     //public String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
     //listener for archive
     //private OnItemClickListener aListener;
@@ -77,7 +78,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         return new DataViewHolder(view);
     }
 
-    
+
     @Override
 
     public void onBindViewHolder(@NonNull GoodAdapter.DataViewHolder holder, @SuppressLint("RecyclerView") int position) {
@@ -177,17 +178,35 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             sub1Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(num_id_c==0){
+                        num_id1=String.valueOf(ID.get(getAdapterPosition()));
+                        num_id_c=1;
+                        num_c = 0;
+                    }else{
+                        num_id2=String.valueOf(ID.get(getAdapterPosition()));
+                        if(num_id1==num_id2){
+                            num_c=1;
+                        }else{
+                            num_c = 0;
+                        }
+                    }
+
                     //這東西怎麼get都是舊的num
                     if (num_c == 0) {
                         number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
                         num_c=1;
                     }
                     number=number-1;
+                    int text=number;
                     //↓這行指令為何不動
 
 
                     //↓的確能更新資料
                     updateCVMaker(2,number);
+                    //Toast toast=Toast.makeText(context,String.valueOf(number),Toast.LENGTH_SHORT);
+                    //toast.show();
+                    list_Quantity_TextView.setText(String.valueOf(text));
+
                     //↑的確能更新資料
 
                     //toast報錯
@@ -312,7 +331,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             //oh YES :(
 
             //刷新
-            notifyDataSetChanged();
+            //notifyDataSetChanged();
 
         }
     }

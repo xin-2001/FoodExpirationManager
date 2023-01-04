@@ -80,22 +80,7 @@ public class MainActivity extends Activity {
         timelimit = new ArrayList<>();
 
         storeDataToArrays();
-        //makeData();
-        /*
-        //設置RecycleView_舊
 
-        homeRecyclerView = findViewById(R.id.home_recycleview);
-        homeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        homeRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-
-        homeListAdapter = new HomeListAdapter();
-        // Linear型態，第二個參數控制垂直或水平，第三個參數為是否reverse順序
-        homeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-
-        // Grid型態，第二個參數控制一列顯示幾項
-        homeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        homeRecyclerView.setAdapter(homeListAdapter);
-        */
 
         //設置RecycleView
         greatAdapter = new GreatAdapter(MainActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit);
