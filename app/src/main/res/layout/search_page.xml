@@ -284,14 +284,15 @@
 
 
             </LinearLayout>
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="#F2B263"
                 android:text="搜尋"
-                android:textSize="50px"
-                android:background="#F2B263"/>
+                android:textSize="50px" />
 
 
         </LinearLayout>

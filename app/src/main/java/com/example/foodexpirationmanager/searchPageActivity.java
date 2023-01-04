@@ -134,22 +134,73 @@ public class searchPageActivity extends Activity {
         });
 
         //到期日的單選
-        dateDistanceRadioGroup1.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        date0RadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            public void onClick(View view) {
+                date0RadioButton.setChecked(true);
+                date5RadioButton.setChecked(false);
+                date7RadioButton.setChecked(false);
                 date14RadioButton.setChecked(false);
                 date30RadioButton.setChecked(false);
                 date60RadioButton.setChecked(false);
             }
         });
-        dateDistanceRadioGroup2.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+        date5RadioButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            public void onClick(View view) {
+                date0RadioButton.setChecked(false);
+                date5RadioButton.setChecked(true);
+                date7RadioButton.setChecked(false);
+                date14RadioButton.setChecked(false);
+                date30RadioButton.setChecked(false);
+                date60RadioButton.setChecked(false);
+            }
+        });
+        date7RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                date0RadioButton.setChecked(false);
+                date5RadioButton.setChecked(false);
+                date7RadioButton.setChecked(true);
+                date14RadioButton.setChecked(false);
+                date30RadioButton.setChecked(false);
+                date60RadioButton.setChecked(false);
+            }
+        });
+        date14RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 date0RadioButton.setChecked(false);
                 date5RadioButton.setChecked(false);
                 date7RadioButton.setChecked(false);
+                date14RadioButton.setChecked(true);
+                date30RadioButton.setChecked(false);
+                date60RadioButton.setChecked(false);
             }
         });
+        date30RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                date0RadioButton.setChecked(false);
+                date5RadioButton.setChecked(false);
+                date7RadioButton.setChecked(false);
+                date14RadioButton.setChecked(false);
+                date30RadioButton.setChecked(true);
+                date60RadioButton.setChecked(false);
+            }
+        });
+        date60RadioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                date0RadioButton.setChecked(false);
+                date5RadioButton.setChecked(false);
+                date7RadioButton.setChecked(false);
+                date14RadioButton.setChecked(false);
+                date30RadioButton.setChecked(false);
+                date60RadioButton.setChecked(true);
+            }
+        });
+
 
     }
     //重寫onBackPressed，禁止手機內建上一頁功能
