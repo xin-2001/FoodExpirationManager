@@ -44,7 +44,13 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ps + " TEXT, "
                 + COLUMN_archived + " INTEGER NOT NULL DEFAULT 0 )";
 //      執行以上sql語句 & debug
+//        trigger 去殺掉 0 但尚未存檔的物件
+        String trigger = "create trigger zerokiller after UPDATE of num on food " +
+                "BEGIN " +
+                " UPDATE food set archived=1 WHERE num <= 0; " +
+                "END";
         db.execSQL(ctSQL);
+        db.execSQL(trigger);
     }
 
     @Override
@@ -87,6 +93,7 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
         else{
             Toast.makeText(context,"YES! :)",Toast.LENGTH_SHORT).show();
         }
+        //db.execSQL();
     }
 
     void deleteData(int id){

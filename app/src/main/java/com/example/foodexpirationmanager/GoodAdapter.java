@@ -113,8 +113,11 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         //holder.list_photo_TextView.setText(String.valueOf(objType.get(position)));
         holder.list_photo_TextView.setBackground(ContextCompat.getDrawable(context.getApplicationContext(), sort_images[photo_num]));
         holder.list_Name_TextView.setText(String.valueOf(name.get(position)));
+        holder.list_Quantity_TextView.setText("數　　量：");
         holder.list_Quantity_TextView.append(String.valueOf(num.get(position)));
+        holder.list_ShopDate_TextView.setText("購買日期：");
         holder.list_ShopDate_TextView.append(String.valueOf(buyDate.get(position)));
+        holder.list_Effectivedate_TextView.setText("有效日期：");
         holder.list_Effectivedate_TextView.append(String.valueOf(expiration.get(position)));
         holder.list_Tag_TextView.setText(String.valueOf(tag.get(position)));
         holder.list_ps_TextView.setText(String.valueOf(ps.get(position)));
@@ -170,7 +173,44 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             archiveButton=itemView.findViewById(R.id.archive_Button);
 
             //將delete改成archive
+            /*
+            public void updateCVMaker(){
+                //aListener.onItemClick(getAdapterPosition());
+                //ID,objType,name,tag,buyDate,expiration,num,ps,archived
 
+                //取得item的內容
+                String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+                id = String.valueOf(ID.get(getAdapterPosition()));
+                OTYPE = String.valueOf(objType.get(getAdapterPosition()));
+                NAME = String.valueOf(name.get(getAdapterPosition()));
+                TAG = String.valueOf(tag.get(getAdapterPosition()));
+                BD = String.valueOf(buyDate.get(getAdapterPosition()));
+                EXPD = String.valueOf(expiration.get(getAdapterPosition()));
+                NUM = String.valueOf(num.get(getAdapterPosition()));
+                PS = String.valueOf(ps.get(getAdapterPosition()));
+
+
+                //測試看看直接寫在這裡能不能動
+                DB_helper = new FEMDatabaseHelper(context);
+                SQLiteDatabase db = DB_helper.getWritableDatabase();
+                //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+                //id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+
+                ContentValues cv = new ContentValues();
+                cv.put("_id", Integer.valueOf(id.trim()));
+                cv.put("objType", OTYPE.trim());
+                cv.put("name", NAME.trim());
+                cv.put("tag", TAG.trim());
+                cv.put("buyDate", BD.trim());
+                cv.put("expiration", EXPD.trim());
+                cv.put("num",Integer.valueOf(NUM.trim()));
+                cv.put("ps", PS.trim());
+                cv.put("archived",1);
+
+                db.update("food",cv,"_id = " + Integer.valueOf(id.trim()) ,null);
+                //oh YES :(
+            }
+            */
             //減1
             sub1Button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -178,6 +218,10 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                     int number;
                     number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
                     number=number-1;
+                    //list_Quantity_TextView.setText(String.valueOf(number));
+                    //i = 2 num要減少1
+                    updateCVMaker(2,number);
+                    //number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
                     list_Quantity_TextView.setText(String.valueOf(number));
                     //這裡要同步刷新資料庫中的資料
                 }
@@ -186,46 +230,70 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             archiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //aListener.onItemClick(getAdapterPosition());
-                    //ID,objType,name,tag,buyDate,expiration,num,ps,archived
-
-                    //取得item的內容
-                    String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
-                    id = String.valueOf(ID.get(getAdapterPosition()));
-                    OTYPE = String.valueOf(objType.get(getAdapterPosition()));
-                    NAME = String.valueOf(name.get(getAdapterPosition()));
-                    TAG = String.valueOf(tag.get(getAdapterPosition()));
-                    BD = String.valueOf(buyDate.get(getAdapterPosition()));
-                    EXPD = String.valueOf(expiration.get(getAdapterPosition()));
-                    NUM = String.valueOf(num.get(getAdapterPosition()));
-                    PS = String.valueOf(ps.get(getAdapterPosition()));
-
-
-                    //測試看看直接寫在這裡能不能動
-                    DB_helper = new FEMDatabaseHelper(context);
-                    SQLiteDatabase db = DB_helper.getWritableDatabase();
-                    //ID,objType,name,tag,buyDate,expiration,num,ps,archived
-                    //id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
-
-                    ContentValues cv = new ContentValues();
-                    cv.put("_id", Integer.valueOf(id.trim()));
-                    cv.put("objType", OTYPE.trim());
-                    cv.put("name", NAME.trim());
-                    cv.put("tag", TAG.trim());
-                    cv.put("buyDate", BD.trim());
-                    cv.put("expiration", EXPD.trim());
-                    cv.put("num",Integer.valueOf(NUM.trim()));
-                    cv.put("ps", PS.trim());
-                    cv.put("archived",1);
-
-                    db.update("food",cv,"_id = " + Integer.valueOf(id.trim()) ,null);
-                    //哦不:(
-
-
-
+                    updateCVMaker(1,0);
                 }
             });
 
+        }
+
+        //FEM裡頭的東西搬過來用 selectData
+        private void selectData(int i ,int number) {
+            String SQL1 = "SELECT * FROM food"
+                    //+ " WHERE archived =  0"
+                    + " ORDER BY archived ASC ,"
+                    + " expiration" + " ASC";
+        }
+
+        //FEM裡頭的東西搬過來用 changeData
+        //@SuppressLint("NotifyDataSetChanged")
+        private void updateCVMaker(int i , int number) {
+            //aListener.onItemClick(getAdapterPosition());
+            //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+
+            //取得item的內容
+            String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS,ACIV;
+            id = String.valueOf(ID.get(getAdapterPosition()));
+            OTYPE = String.valueOf(objType.get(getAdapterPosition()));
+            NAME = String.valueOf(name.get(getAdapterPosition()));
+            TAG = String.valueOf(tag.get(getAdapterPosition()));
+            BD = String.valueOf(buyDate.get(getAdapterPosition()));
+            EXPD = String.valueOf(expiration.get(getAdapterPosition()));
+            NUM = String.valueOf(num.get(getAdapterPosition()));
+            PS = String.valueOf(ps.get(getAdapterPosition()));
+            ACIV = String.valueOf(archived.get(getAdapterPosition()));
+
+
+            //測試看看直接寫在這裡能不能動
+            DB_helper = new FEMDatabaseHelper(context);
+            SQLiteDatabase db = DB_helper.getWritableDatabase();
+            //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+            //id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
+
+            ContentValues cv = new ContentValues();
+            cv.put("_id", Integer.valueOf(id.trim()));
+            cv.put("objType", OTYPE.trim());
+            cv.put("name", NAME.trim());
+            cv.put("tag", TAG.trim());
+            cv.put("buyDate", BD.trim());
+            cv.put("expiration", EXPD.trim());
+            if(i == 1){
+                cv.put("num",Integer.valueOf(NUM.trim()));
+            }else{
+                cv.put("num",number);
+            }
+            cv.put("ps", PS.trim());
+            if (i == 1){
+                cv.put("archived",1);
+            }
+            else{
+                cv.put("archived",Integer.valueOf(ACIV.trim()));
+            }
+
+            db.update("food",cv,"_id = " + Integer.valueOf(id.trim()) ,null);
+            //oh YES :(
+
+            //刷新
+            notifyDataSetChanged();
         }
     }
 }

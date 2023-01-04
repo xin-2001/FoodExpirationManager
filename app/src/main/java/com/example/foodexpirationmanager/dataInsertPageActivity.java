@@ -79,6 +79,7 @@ public class dataInsertPageActivity extends Activity {
         ID=intent.getStringExtra("ID");
         if (ID.equals("NULL")){
             ID="-1";
+            archived = "0";
         }else{
             objType=intent.getStringExtra("objType");
             name=intent.getStringExtra("name");
@@ -303,8 +304,9 @@ public class dataInsertPageActivity extends Activity {
                                 effectiveDateTextView.getText().toString().trim(),
                                 Integer.valueOf(quantityEditText.getText().toString().trim()),
                                 noteEditText.getText().toString().trim(),
-                                0
+                                Integer.parseInt(archived)
                         );
+                        //這樣archive有若封存後修改會造成錯誤的問題<不確定>
                     }
 
 
