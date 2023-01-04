@@ -357,10 +357,15 @@ public class dataInsertPageActivity extends Activity {
                         );
                         //這樣archive有若封存後修改會造成錯誤的問題<不確定>
                     }
+                    Toast toast=Toast.makeText(getApplicationContext(),"新增成功",Toast.LENGTH_SHORT);
+                    toast.show();
+                    Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
+                    startActivity(i);
+                    finish();
 
 
                     //清除目前資料
-                    drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
+                    /*drinkPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.drink));
                     saucePhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.sauce));
                     foodPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.deli_picked));
                     freshPhotoTextView.setBackground(ContextCompat.getDrawable(getApplicationContext(), R.drawable.freshfood));
@@ -375,12 +380,8 @@ public class dataInsertPageActivity extends Activity {
                     effectiveDateTextView.setHint("選擇日期");
                     effectiveDateTextView.setText("");
                     dateChecked=0;
-                    noteEditText.setText("");
-                    Toast toast=Toast.makeText(getApplicationContext(),"新增成功",Toast.LENGTH_SHORT);
-                    toast.show();
-                    Intent i=new Intent(dataInsertPageActivity.this,MainActivity.class);
-                    startActivity(i);
-                    finish();
+                    noteEditText.setText("");*/
+
 
 
                 }else{
