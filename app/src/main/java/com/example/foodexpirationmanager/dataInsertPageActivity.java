@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -296,13 +295,15 @@ public class dataInsertPageActivity extends Activity {
                     if(otherRadioButton.isChecked()) { objType = "otherfood"; classCounter = classCounter + 1; }
                     // if counter correct insert data
                     if(classCounter == 1) {
-                        DB.insertData(objType.trim(),
+                        DB.changeData(-1,
+                                objType.trim(),
                                 itemNameEditText.getText().toString().trim(),
                                 tagNameEditText.getText().toString().trim(),
                                 shopDateTextView.getText().toString().trim(),
                                 effectiveDateTextView.getText().toString().trim(),
                                 Integer.valueOf(quantityEditText.getText().toString().trim()),
-                                noteEditText.getText().toString().trim()
+                                noteEditText.getText().toString().trim(),
+                                0
                         );
                     }
 

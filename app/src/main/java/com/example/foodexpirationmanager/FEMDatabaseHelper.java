@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
-import java.sql.Struct;
+
 
 public class FEMDatabaseHelper extends SQLiteOpenHelper {
     private Context context;
@@ -53,11 +53,11 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // insert data 把所需資料都拿來用，id自動生成所以不用管，insert來的食物一律archived 0
-    void insertData(String objType, String name , String tag, String buyDate , String expiration , int num , String ps){
+    // changer data id = -1 是insert 其他數字則是update
+    void changeData(int id , String objType, String name , String tag, String buyDate , String expiration , int num , String ps, int archived){
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
-
+        long result = -1; //預設失敗
         cv.put(COLUMN_objType,objType);
         cv.put(COLUMN_name,name);
         cv.put(COLUMN_tag,tag);
@@ -65,18 +65,41 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_expiration,expiration);
         cv.put(COLUMN_num,num);
         cv.put(COLUMN_ps,ps);
+        cv.put(COLUMN_archived,archived);
 
-        long result = db.insert(TABLE_NAME, null , cv );
+        //i = 0 → insert
+        //i = n → update
+        if(id == -1) {
+            result = db.insert(TABLE_NAME, null, cv);
+        }
+        else {
+            result = db.update(TABLE_NAME,cv,"ID = " + id ,null);
+        }
+
         if (result == -1 ){
             Toast.makeText(context,"Failed>:(",Toast.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(context,"Added!YES!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(context,"YES! :)",Toast.LENGTH_SHORT).show();
         }
     }
 
-    Cursor selectDATA(){
-        //SQL1 select出所有未被封存的food且以有效日期由小到大排序
+    Cursor selectData(){
+        //SQL1 select出所有food且以未封存→已封存+有效日期由小到大排序
+        String SQL1 = "SELECT * FROM " + TABLE_NAME
+              //+ " WHERE archived =  0"
+                + " ORDER BY archived ASC ,"
+                + COLUMN_expiration + " ASC";
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = null;
+
+        if(db!=null){
+                cursor = db.rawQuery(SQL1, null);
+        }
+        return cursor;
+    }
+    Cursor selectGivenData(){
         String SQL1 = "SELECT * FROM " + TABLE_NAME
                 + " WHERE archived = 0 "
                 + " ORDER BY " + COLUMN_expiration + " ASC" ;
@@ -85,7 +108,8 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = null;
 
         if(db!=null){
-            cursor = db.rawQuery(SQL1,null);
+
+            cursor = db.rawQuery(SQL1, null);
         }
         return cursor;
     }

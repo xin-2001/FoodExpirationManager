@@ -5,13 +5,11 @@ package com.example.foodexpirationmanager;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 //超讚處理器
 public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder> {
 
-    private Context context;
+    private final Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
 
 
@@ -58,7 +56,9 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         return new DataViewHolder(view);
     }
 
+    
     @Override
+
     public void onBindViewHolder(@NonNull GoodAdapter.DataViewHolder holder, @SuppressLint("RecyclerView") int position) {
         //holder.list_photo_TextView.setText(String.valueOf(objType.get(position)));
         String photo;
@@ -85,6 +85,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         holder.list_ps_TextView.setText(String.valueOf(ps.get(position)));
 
 
+        //為什麼這個new onclick不會亮阿
         //item的點擊事件
         holder.itemView.setOnClickListener (new View.OnClickListener () {
             @Override

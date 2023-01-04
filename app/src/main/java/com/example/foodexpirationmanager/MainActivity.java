@@ -2,6 +2,7 @@ package com.example.foodexpirationmanager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.widget.Toolbar;
 import android.os.Bundle;
@@ -27,18 +28,23 @@ import java.util.Random;
 
 public class MainActivity extends Activity {
 
-    private Button menuButton;
-    private Button addFoodButton;
+    private Button menuButton,addFoodButton;
+    private TextView homeButton,totalButton,searchButton,formButton;
+
     private LinearLayout menuLayout;
     private boolean menu_Bool=false;
-    private TextView homeButton;
-    private TextView totalButton;
-    private TextView searchButton;
-    private TextView formButton;
-    private RecyclerView homeRecyclerView;
-    private HomeListAdapter homeListAdapter;
 
-    ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
+    private RecyclerView recyclerView;
+    //private HomeListAdapter homeListAdapter;
+
+    // database and arraylist
+    FEMDatabaseHelper DB;
+    ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+    GreatAdapter greatAdapter;
+
+    //消失LA
+    //ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
+    //消失LA
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +59,50 @@ public class MainActivity extends Activity {
         searchButton=findViewById(R.id.search_Button);
         formButton=findViewById(R.id.form_Button);
 
-        makeData();
-        //設置RecycleView
+        // recyclerView
+        recyclerView = findViewById(R.id.home_recycleview);
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
+
+
+        // DATABASE;
+        DB = new FEMDatabaseHelper(MainActivity.this);
+        ID = new ArrayList<>();
+        objType= new ArrayList<>();
+        name= new ArrayList<>();
+        tag= new ArrayList<>();
+        buyDate= new ArrayList<>();
+        expiration= new ArrayList<>();
+        num= new ArrayList<>();
+        ps= new ArrayList<>();
+        archived= new ArrayList<>();
+
+        storeDataToArrays();
+        //makeData();
+        /*
+        //設置RecycleView_舊
+
         homeRecyclerView = findViewById(R.id.home_recycleview);
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         homeRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
         homeListAdapter = new HomeListAdapter();
         // Linear型態，第二個參數控制垂直或水平，第三個參數為是否reverse順序
         homeRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
         // Grid型態，第二個參數控制一列顯示幾項
         homeRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         homeRecyclerView.setAdapter(homeListAdapter);
+        */
+
+        //設置RecycleView
+        greatAdapter = new GreatAdapter(MainActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived);
+        recyclerView.setAdapter(greatAdapter);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setAdapter(greatAdapter);
+
 
 
 
@@ -135,6 +174,7 @@ public class MainActivity extends Activity {
 
     }
     //測試------------------------------------------------
+    /*
     private void makeData() {
         String[] sort;
         sort=new String[]{"deli","dessert","sauce","freshfood","otherfoodicon"};
@@ -146,13 +186,35 @@ public class MainActivity extends Activity {
             hashMap.put("date","2023/01/0"+i);
             arrayList.add(hashMap);
         }
+    }
+    */
+    //測試------------------------------------------------
+
+    void storeDataToArrays(){
+        Cursor cursor = DB.selectData();
+        if (cursor.getCount() == 0){
+            Toast.makeText(this,"Failed>:(",Toast.LENGTH_SHORT).show();
+        }else{
+            //ID,objType,name,tag,buyDate,expiration,num,ps,archived
+            while(cursor.moveToNext()){
+                ID.add(cursor.getString(0));
+                objType.add(cursor.getString(1));
+                name.add(cursor.getString(2));
+                tag.add(cursor.getString(3));
+                buyDate.add(cursor.getString(4));
+                expiration.add(cursor.getString(5));
+                num.add(cursor.getString(6));
+                ps.add(cursor.getString(7));
+                archived.add(cursor.getString(8));
+            }
+        }
 
     }
-
     //------------------------------------------------
+    /*
     private class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.ViewHolder>{
 
-
+        /*
         class ViewHolder extends RecyclerView.ViewHolder{
             private TextView sortIdTextView,itemNameTextView,dateTextView;
             private View homeView;
@@ -165,6 +227,8 @@ public class MainActivity extends Activity {
                 homeView  = itemView;
             }
         }
+        */
+        /*
         @NonNull
         @Override
         public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -173,6 +237,8 @@ public class MainActivity extends Activity {
             return new ViewHolder(view);
         }
 
+         */
+        /*
         @Override
         public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
             String photo;
@@ -198,10 +264,12 @@ public class MainActivity extends Activity {
             });
 
         }
-
+        */
+        /*
         @Override
         public int getItemCount() {
             return arrayList.size();
         }
-    }
+        */
+
 }
