@@ -213,12 +213,12 @@ public class listPageActivity extends Activity {
         String part1="",part2="",part3="",x="";
         String debug="";
 
-        if(tag == "NULL"){
+        if(tag=="NULL"){
             part1 = "name LIKE '%" + name + "%' ";
             p=p+1;
             debug = debug +"a";
         }
-        if(name == "NULL"){
+        if(name=="NULL"){
             part1 = "tag LIKE '%" + tag + "%' ";
             p=p+1;
             debug = debug +"a";
@@ -285,27 +285,27 @@ public class listPageActivity extends Activity {
             debug = debug+"x";
         }
 
-        if (timelimit == "0"){
+        if (timelimit.equals("0")){
             part3 = "timelimit <= 0";
             p=p+1;
             debug=debug+"h";
-        }if (timelimit == "5"){
+        }if (timelimit.equals("5")){
             part3 = "timelimit <= 5";
             p=p+1;
             debug=debug+"h";
-        }if (timelimit == "7"){
+        }if (timelimit.equals("7")){
             part3 = "timelimit <= 7";
             p=p+1;
             debug=debug+"h";
-        }if (timelimit == "14"){
+        }if (timelimit.equals("14")){
             part3 = "timelimit <= 14";
             p=p+1;
             debug=debug+"h";
-        }if (timelimit == "30"){
+        }if (timelimit.equals("30")){
             part3 = "timelimit <= 30";
             p=p+1;
             debug=debug+"h";
-        }if (timelimit == "60"){
+        }if (timelimit.equals("60")){
             part3 = "timelimit <= 60";
             p=p+1;
             debug=debug+"h";
