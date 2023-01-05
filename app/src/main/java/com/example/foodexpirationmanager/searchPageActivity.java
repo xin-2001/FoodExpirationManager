@@ -216,6 +216,7 @@ public class searchPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(searchPageActivity.this,listPageActivity.class);
                 String keyword="",whichclass="",timelimit="-1";
+                String tag="",name="";
 
                 if (!keywordText.getText().toString().isEmpty()){
                 keyword = keywordText.getText().toString().trim();
@@ -223,11 +224,15 @@ public class searchPageActivity extends Activity {
                     //this is tag but name
                     keyword = keyword.substring(1);
                     i.putExtra("tag",keyword);
+                    tag = keyword;
                     i.putExtra("name","NULL");
+                    name = "NULL";
                 }else{
                     //this is name but tag
                     i.putExtra("tag","NULL");
+                    tag = "NULL";
                     i.putExtra("name",keyword);
+                    name = keyword;
                 }
                 }
                 // drinkCheckBox freshCheckBox foodCheckBox sauceCheckBox dessertCheckBox otherCheckBox;
@@ -269,7 +274,7 @@ public class searchPageActivity extends Activity {
 
 
 
-                Toast toast=Toast.makeText(getApplicationContext(),keyword+whichclass+timelimit,Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(),"TAGIS "+tag +"NAMEIS "+name+"WCIS "+whichclass+"TLIS "+timelimit,Toast.LENGTH_SHORT);
                 toast.show();
 
                 startActivity(i);

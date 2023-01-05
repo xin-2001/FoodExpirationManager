@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class listPageActivity extends Activity {
     private Button menuButton,addFoodButton;
@@ -87,7 +88,7 @@ public class listPageActivity extends Activity {
         Toast toast=Toast.makeText(getApplicationContext(),"FOT"+X,Toast.LENGTH_SHORT);
         toast.show();
 
-        if(X!="nullnullanull"){
+        if(X!="nullnull-1"){
             SQL = sqlMaker(TAG,NAME,whichclass,LIMIT);
         }
         toast=Toast.makeText(getApplicationContext(),SQL,Toast.LENGTH_SHORT);
@@ -213,15 +214,15 @@ public class listPageActivity extends Activity {
         String part1="",part2="",part3="",x="";
         String debug="";
 
-        if(tag=="NULL"){
-            part1 = "name LIKE '%" + name + "%' ";
+        if(Objects.equals(tag, "NULL")){
+            part1 = "name ='" + name + "' ";
             p=p+1;
-            debug = debug +"a";
+            debug = debug +"z";
         }
-        if(name=="NULL"){
+        if(Objects.equals(name, "NULL")){
             part1 = "tag LIKE '%" + tag + "%' ";
             p=p+1;
-            debug = debug +"a";
+            debug = debug +"z";
         }
         if(!whichclass.isEmpty()) {
             if (whichclass.indexOf("0") != -1) {
@@ -312,6 +313,9 @@ public class listPageActivity extends Activity {
             debug=debug+"h";
         }
 
+        Toast.makeText(this,debug,Toast.LENGTH_SHORT).show();
+
+
         SQL3 = "SELECT * , julianday(expiration) - julianday(date('now','start of day')) AS timelimit"
                 + " FROM food"
                 + " WHERE "
@@ -333,7 +337,7 @@ public class listPageActivity extends Activity {
             }
         }
         if(p==0){
-            if(debug.indexOf('a') != -1){
+            if(debug.indexOf('z') != -1){
                 //part1
                 SQL3 = SQL3 + part1;
             }
