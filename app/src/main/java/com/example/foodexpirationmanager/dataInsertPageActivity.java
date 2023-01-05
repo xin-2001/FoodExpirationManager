@@ -135,6 +135,7 @@ public class dataInsertPageActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(dataInsertPageActivity.this,listPageActivity.class);
+                i.putExtra("whichclass","a");
                 startActivity(i);
                 finish();
             }

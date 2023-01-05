@@ -61,6 +61,7 @@ public class formPageActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(formPageActivity.this,listPageActivity.class);
+                i.putExtra("whichclass","a");
                 startActivity(i);
                 finish();
             }

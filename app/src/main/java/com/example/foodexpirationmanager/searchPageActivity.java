@@ -83,6 +83,7 @@ public class searchPageActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(searchPageActivity.this,listPageActivity.class);
+                i.putExtra("whichclass","a");
                 startActivity(i);
                 finish();
             }

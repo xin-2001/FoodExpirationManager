@@ -27,7 +27,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
     FEMDatabaseHelper DB_helper;
     private final Context context;
     private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit;
-
+    private String SQL="";
     //int number=0,num_c=0,num_id_c=0;
     //private String num_id1,num_id2;
 
@@ -198,7 +198,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                     Toast toast=Toast.makeText(context,String.valueOf(number),Toast.LENGTH_SHORT);
                     toast.show();
                     //這裡要同步刷新資料庫中的資料(同步過去了)
-                    selectData(1);
+                    selectData(1,"");
                     //刷新頁面
                 }
                 /* 我很謝謝超人，但我其實在洗澡的途中想到怎麼寫了，我很抱歉:(
@@ -250,14 +250,14 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                 public void onClick(View view) {
                     updateCVMaker(1,0);
 
-                    selectData(1);
+                    selectData(1,"");
                 }
             });
 
         }
 
         //FEM裡頭的東西搬過來用 selectData
-        private void selectData(int i ) {
+        private void selectData(int i ,String SQL3) {
             //清空arraylist
             //ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
 
@@ -292,6 +292,9 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                 }
                 if(i==2){
                     cursor = db.rawQuery(SQL2,null);
+                }
+                if(i==3){
+                    cursor = db.rawQuery(SQL,null);
                 }
             }
             if (cursor.getCount() == 0){

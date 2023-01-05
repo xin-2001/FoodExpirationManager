@@ -84,7 +84,7 @@ public class listPageActivity extends Activity {
         whichclass=intent.getStringExtra("whichclass");
         LIMIT=intent.getStringExtra("timelimit");
         String X = TAG+NAME+whichclass+LIMIT;
-        Toast toast=Toast.makeText(getApplicationContext(),X,Toast.LENGTH_SHORT);
+        Toast toast=Toast.makeText(getApplicationContext(),"FOT"+X,Toast.LENGTH_SHORT);
         toast.show();
 
         if(X!="nullnullanull"){
