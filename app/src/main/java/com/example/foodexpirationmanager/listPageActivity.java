@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,12 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class listPageActivity extends Activity {
     private Button menuButton,addFoodButton;
     private TextView homeButton,totalButton,searchButton,formButton,IdTextView;
-
+    private String SQL="-1";
     private LinearLayout menuLayout,listMainLayout;
     private boolean menu_Bool=false;
 
@@ -29,7 +27,8 @@ public class listPageActivity extends Activity {
     // db_helper
     FEMDatabaseHelper DB;
     // array test
-    ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+
+    ArrayList<String> ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit;
     GoodAdapter goodAdapter;
     // array test
     //ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();//測試
@@ -61,14 +60,57 @@ public class listPageActivity extends Activity {
         num= new ArrayList<>();
         ps= new ArrayList<>();
         archived= new ArrayList<>();
+        timelimit = new ArrayList<>();
+
+        //for search
+        String TAG,NAME,whichclass,LIMIT;
+
+
+
+
+        //接收資料
+        // TAG,NAME,whichclass,timelimit
+        Intent intent=getIntent();
+        TAG=intent.getStringExtra("tag");
+        NAME=intent.getStringExtra("name");
+        /*
+        if (TAG.equals("NULL")){
+            NAME=intent.getStringExtra("name");
+        if(NAME.equals("NULL")){
+            TAG=intent.getStringExtra("tag");
+        }
+        */
+
+        whichclass=intent.getStringExtra("whichclass");
+        LIMIT=intent.getStringExtra("timelimit");
+        String X = TAG+NAME+whichclass+LIMIT;
+        Toast toast=Toast.makeText(getApplicationContext(),X,Toast.LENGTH_SHORT);
+        toast.show();
+
+        if(X!="nullnullanull"){
+            SQL = sqlMaker(TAG,NAME,whichclass,LIMIT);
+        }
+        toast=Toast.makeText(getApplicationContext(),SQL,Toast.LENGTH_SHORT);
+        toast.show();
+
+
+
 
         //儲存data到array等拿出來用
-        storeDataToArrays();
+        if(SQL ==  "SELECT * , julianday(expiration) - julianday(date('now','start of day')) AS timelimit"
+                + " FROM food"
+                + " WHERE ") {
+            //沒SQL
+            storeDataToArrays(0,"");
+        }
+        else {
+            //自帶SQL
+            storeDataToArrays(1,SQL);
+        }
         //啟用good adapter去拿取
-        goodAdapter = new GoodAdapter(listPageActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived);
+        goodAdapter = new GoodAdapter(listPageActivity.this,ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit);
         recyclerView.setAdapter(goodAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(listPageActivity.this));
-
 
 
 
@@ -156,8 +198,164 @@ public class listPageActivity extends Activity {
 
 
     }
-    void storeDataToArrays(){
-        Cursor cursor = DB.selectData(1);
+
+    private String sqlMaker(String tag, String name, String whichclass, String timelimit) {
+        /*
+        String SQL2 = "SELECT * , julianday(expiration) - julianday(date('now','start of day')) AS timelimit"
+                + " FROM " + TABLE_NAME
+                + " WHERE archived = 0 "
+                + " AND timelimit <= 7"
+                + " ORDER BY " + COLUMN_expiration + " ASC"
+                ;
+        */
+        String SQL3="";
+        int p_2=-1,p=-1;
+        String part1="",part2="",part3="",x="";
+        String debug="";
+
+        if(tag == "NULL"){
+            part1 = "name LIKE '%" + name + "%' ";
+            p=p+1;
+            debug = debug +"a";
+        }
+        if(name == "NULL"){
+            part1 = "tag LIKE '%" + tag + "%' ";
+            p=p+1;
+            debug = debug +"a";
+        }
+        if(!whichclass.isEmpty()) {
+            if (whichclass.indexOf("0") != -1) {
+                p_2 = p_2 + 1;
+                x = "objType = 'drink'";
+                debug = debug + "b";
+            }
+            if (whichclass.indexOf("1") != -1) {
+                p_2 = p_2 + 1;
+                if (p_2 == 0) {
+                    x = "objType = 'freshfood'";
+                } else {
+                    x = x + " OR objType = 'freshfood'";
+                }
+                debug = debug + "c";
+            }
+            if (whichclass.indexOf("2") != -1) {
+                p_2 = p_2 + 1;
+                if (p_2 == 0) {
+                    x = "objType = 'deli'";
+                } else {
+                    x = x + " OR objType = 'deli'";
+                }
+                debug = debug + "d";
+            }
+            if (whichclass.indexOf("3") != -1) {
+                p_2 = p_2 + 1;
+                if (p_2 == 0) {
+                    x = "objType = 'sauce'";
+                } else {
+                    x = x + " OR objType = 'sauce'";
+                }
+                debug = debug + "e";
+            }
+            if (whichclass.indexOf("4") != -1) {
+                p_2 = p_2 + 1;
+                if (p_2 == 0) {
+                    x = "objType = 'dessert'";
+                } else {
+                    x = x + " OR objType = 'dessert'";
+                }
+                debug = debug + "f";
+            }
+            if (whichclass.indexOf("5") != -1) {
+                p_2 = p_2 + 1;
+                if (p_2 == 0) {
+                    x = "objType = 'otherfood'";
+                } else {
+                    x = x + " OR objType = 'otherfood'";
+                }
+                debug = debug + "g";
+            }
+        }
+        if(p_2>=0){
+            p=p+1;
+            part2 = x;
+        }
+
+        if(p==1){
+            x = part1 +" OR "+ part2 ;
+            debug = debug+"x";
+        }
+
+        if (timelimit == "0"){
+            part3 = "timelimit <= 0";
+            p=p+1;
+            debug=debug+"h";
+        }if (timelimit == "5"){
+            part3 = "timelimit <= 5";
+            p=p+1;
+            debug=debug+"h";
+        }if (timelimit == "7"){
+            part3 = "timelimit <= 7";
+            p=p+1;
+            debug=debug+"h";
+        }if (timelimit == "14"){
+            part3 = "timelimit <= 14";
+            p=p+1;
+            debug=debug+"h";
+        }if (timelimit == "30"){
+            part3 = "timelimit <= 30";
+            p=p+1;
+            debug=debug+"h";
+        }if (timelimit == "60"){
+            part3 = "timelimit <= 60";
+            p=p+1;
+            debug=debug+"h";
+        }
+
+        SQL3 = "SELECT * , julianday(expiration) - julianday(date('now','start of day')) AS timelimit"
+                + " FROM food"
+                + " WHERE "
+                ;
+        if(p==2){
+            SQL3 = SQL3 + part1 + " OR " + part2 + " OR " +part3;
+        }
+        if(p==1){
+            if(debug.indexOf('x') != -1){
+                SQL3 = SQL3 + x ;  //part1+part2
+            }
+            else{
+                if(debug.indexOf('a') != -1){
+                    SQL3 = SQL3 + part1 + " OR " + part3;//part1+part3
+                }
+                else{
+                    SQL3 = SQL3 + part2 + " OR " + part3;//part2+part3
+                }
+            }
+        }
+        if(p==0){
+            if(debug.indexOf('a') != -1){
+                //part1
+                SQL3 = SQL3 + part1;
+            }
+            else if(debug.indexOf('h') != -1){
+                //part3
+                SQL3 = SQL3 + part3;
+            }
+            else {
+                SQL3 = SQL3 +part2;
+            }
+        }
+        return SQL3;
+
+    }
+
+    void storeDataToArrays(int x,String SQL){
+        Cursor cursor;
+        if(x == 1){
+            cursor= DB.selectData(3,SQL);
+        }
+        else {
+            cursor = DB.selectData(1, "");
+        }
         if (cursor.getCount() == 0){
             Toast.makeText(this,"Failed>:(",Toast.LENGTH_SHORT).show();
         }else{

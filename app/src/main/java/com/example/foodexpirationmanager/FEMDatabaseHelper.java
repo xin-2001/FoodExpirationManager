@@ -101,7 +101,7 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME, "_id="+id,null);
     }
 
-    Cursor selectData(int i){
+    Cursor selectData(int i,String SQL3){
         //總覽頁面→SQL1 select出所有food且以未封存→已封存+有效日期由小到大排序
         String SQL1 = "SELECT * FROM " + TABLE_NAME
               //+ " WHERE archived =  0"
@@ -123,6 +123,9 @@ public class FEMDatabaseHelper extends SQLiteOpenHelper {
             }
             if (i == 2){
                 cursor = db.rawQuery(SQL2, null);
+            }
+            if(i == 3){
+                cursor = db.rawQuery(SQL3, null);
             }
         }
         return cursor;

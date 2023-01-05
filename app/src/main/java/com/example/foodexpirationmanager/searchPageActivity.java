@@ -1,8 +1,10 @@
 package com.example.foodexpirationmanager;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toolbar;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 public class searchPageActivity extends Activity {
     private Button menuButton;
+    private Button sqlsearchB;
     private LinearLayout menuLayout,searchMainLayout;
     private boolean menu_Bool=false;
     private TextView homeButton;
@@ -30,6 +33,7 @@ public class searchPageActivity extends Activity {
     private RadioButton date14RadioButton;
     private RadioButton date30RadioButton;
     private RadioButton date60RadioButton;
+    private EditText keywordText;
     private CheckBox drinkCheckBox;
     private CheckBox freshCheckBox;
     private CheckBox foodCheckBox;
@@ -37,11 +41,12 @@ public class searchPageActivity extends Activity {
     private CheckBox dessertCheckBox;
     private CheckBox otherCheckBox;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_page);
-
+        sqlsearchB = findViewById(R.id.sqlsearchButton);
         menuButton=findViewById(R.id.menu_Button);
         menuLayout=(LinearLayout)findViewById(R.id.menu_Layout);
         homeButton=findViewById(R.id.home_Button);
@@ -63,6 +68,7 @@ public class searchPageActivity extends Activity {
         dessertCheckBox=findViewById(R.id.dessert_CheckBox);
         otherCheckBox=findViewById(R.id.other_CheckBox);
         searchMainLayout=findViewById(R.id.search_MainLayout);
+        keywordText=findViewById(R.id.keywordseach_EditText);
 
         //選單
         homeButton.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +207,73 @@ public class searchPageActivity extends Activity {
             }
         });
 
+
+        //select功能在這
+        sqlsearchB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(searchPageActivity.this,listPageActivity.class);
+                String keyword="",whichclass="",timelimit="-1";
+
+                if (!keywordText.getText().toString().isEmpty()){
+                keyword = keywordText.getText().toString().trim();
+                if (keyword.charAt(0) == '#' ){
+                    //this is tag but name
+                    keyword = keyword.substring(1);
+                    i.putExtra("tag",keyword);
+                    i.putExtra("name","NULL");
+                }else{
+                    //this is name but tag
+                    i.putExtra("tag","NULL");
+                    i.putExtra("name",keyword);
+                }
+                }
+                // drinkCheckBox freshCheckBox foodCheckBox sauceCheckBox dessertCheckBox otherCheckBox;
+                if(drinkCheckBox.isChecked()){
+                    whichclass = whichclass + "0";
+                }
+                if(freshCheckBox.isChecked()){
+                    whichclass = whichclass + "1";
+                }
+                if(foodCheckBox.isChecked()){
+                    whichclass = whichclass + "2";
+                }
+                if(sauceCheckBox.isChecked()){
+                    whichclass = whichclass + "3";
+                }
+                if(dessertCheckBox.isChecked()){
+                    whichclass = whichclass + "4";
+                }
+                if(otherCheckBox.isChecked()){
+                    whichclass = whichclass + "5";
+                }
+                i.putExtra("whichclass",whichclass);
+                //radio
+                if(date0RadioButton.isChecked()){
+                    timelimit = "0";
+                }if(date5RadioButton.isChecked()){
+                    timelimit = "5";
+                }if(date7RadioButton.isChecked()){
+                    timelimit = "7";
+                }if(date14RadioButton.isChecked()){
+                    timelimit = "14";
+                }if(date30RadioButton.isChecked()){
+                    timelimit = "30";
+                }if(date60RadioButton.isChecked()){
+                    timelimit = "60";
+                }
+                // if timelimit = -1 代表沒有選篩選
+                i.putExtra("timelimit",timelimit);
+
+
+
+                Toast toast=Toast.makeText(getApplicationContext(),keyword+whichclass+timelimit,Toast.LENGTH_SHORT);
+                toast.show();
+
+                startActivity(i);
+                finish();
+            }
+        });
 
     }
     //重寫onBackPressed，禁止手機內建上一頁功能

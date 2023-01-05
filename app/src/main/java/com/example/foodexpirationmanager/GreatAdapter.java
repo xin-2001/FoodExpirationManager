@@ -94,7 +94,7 @@ public class GreatAdapter extends RecyclerView.Adapter<GreatAdapter.DataViewHold
                 i.putExtra("num",String.valueOf(num.get(position)));
                 i.putExtra("ps",String.valueOf(ps.get(position)));
                 i.putExtra("archived",String.valueOf(archived.get(position)));
-                i.putExtra("timelimit",String.valueOf(archived.get(position)));
+                i.putExtra("timelimit","");
                 view.getContext ().startActivity (i);
             }
         });

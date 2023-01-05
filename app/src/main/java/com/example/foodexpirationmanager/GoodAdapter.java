@@ -26,9 +26,12 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
 
     FEMDatabaseHelper DB_helper;
     private final Context context;
-    private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
-    int number=0,num_c=0,num_id_c=0;
-    private String num_id1,num_id2;
+    private ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived,timelimit;
+
+    //int number=0,num_c=0,num_id_c=0;
+    //private String num_id1,num_id2;
+
+
     //public String id,OTYPE,NAME,TAG,BD,EXPD,NUM,PS;
     //listener for archive
     //private OnItemClickListener aListener;
@@ -55,7 +58,8 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                 ArrayList expiration,
                 ArrayList num,
                 ArrayList ps,
-                ArrayList archived){
+                ArrayList archived,
+                ArrayList timelimit){
         this.context = context;
         this.ID = ID;
         this.objType = objType;
@@ -66,6 +70,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         this.num = num;
         this.ps = ps;
         this.archived = archived;
+        this.timelimit = timelimit;
 
     }
 
@@ -178,6 +183,27 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             sub1Button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    int number;
+                    number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
+                    //當數量剩1時不再減少
+                    if(number==0){
+                    }else{
+                        number=number-1;
+                    }
+                    //↓的確能更新資料
+                    updateCVMaker(2,number);
+                    list_Quantity_TextView.setText(String.valueOf(number));
+                    //↑的確能更新資料
+                    //toast報錯
+                    Toast toast=Toast.makeText(context,String.valueOf(number),Toast.LENGTH_SHORT);
+                    toast.show();
+                    //這裡要同步刷新資料庫中的資料(同步過去了)
+                    selectData(1);
+                    //刷新頁面
+                }
+                /* 我很謝謝超人，但我其實在洗澡的途中想到怎麼寫了，我很抱歉:(
+                   但依然很謝謝你幫我補上了不再減少的邏輯<3 因為我寫了trigger，所以其實應該要減到0才對，謝謝超人:)
+                public void onClick(View view) {
                     if(num_id_c==0){
                         num_id1=String.valueOf(ID.get(getAdapterPosition()));
                         num_id_c=1;
@@ -190,45 +216,41 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                             num_c = 0;
                         }
                     }
-
                     //這東西怎麼get都是舊的num
                     if (num_c == 0) {
                         number=Integer.parseInt(String.valueOf(num.get(getAdapterPosition())));
                         num_c=1;
                     }
-                    //當數量剩1時不再減少
-                    if(number==1){
+                    //當數量剩0時不再減少
+                    if(number==0){
 
                     }else{
                         number=number-1;
                     }
-
-                    //↓這行指令為何不動
-
-
                     //↓的確能更新資料
                     updateCVMaker(2,number);
                     //Toast toast=Toast.makeText(context,String.valueOf(number),Toast.LENGTH_SHORT);
                     //toast.show();
                     list_Quantity_TextView.setText(String.valueOf(number));
-
                     //↑的確能更新資料
-
                     //toast報錯
                     Toast toast=Toast.makeText(context,String.valueOf(number),Toast.LENGTH_SHORT);
                     toast.show();
                     //這裡要同步刷新資料庫中的資料(同步過去了)
-
                     selectData(1);
                     //如何刷新頁面
 
                 }
+
+                */
             });
             //封存
             archiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     updateCVMaker(1,0);
+
+                    selectData(1);
                 }
             });
 
@@ -238,6 +260,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
         private void selectData(int i ) {
             //清空arraylist
             //ArrayList ID,objType,name,tag,buyDate,expiration,num,ps,archived;
+
             ID.clear();
             objType.clear();
             name.clear();
@@ -247,17 +270,28 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             num.clear();
             ps.clear();
             archived.clear();
+
             //清空arraylist
+
             String SQL1 = "SELECT * FROM food"
                     //+ " WHERE archived =  0"
                     + " ORDER BY archived ASC ,"
                     + " expiration" + " ASC";
+            String SQL2 = "SELECT * , julianday(expiration) - julianday(date('now','start of day')) AS timelimit"
+                    + " FROM food"
+                    + " WHERE archived = 0 "
+                    + " AND timelimit <= 7"
+                    + " ORDER BY expiration ASC"
+                    ;
             DB_helper = new FEMDatabaseHelper(context);
             SQLiteDatabase db = DB_helper.getReadableDatabase();
             Cursor cursor = null;
             if(db!=null){
                 if (i == 1){
                     cursor = db.rawQuery(SQL1, null);
+                }
+                if(i==2){
+                    cursor = db.rawQuery(SQL2,null);
                 }
             }
             if (cursor.getCount() == 0){
@@ -276,6 +310,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
                     ps.add(cursor.getString(7));
                     archived.add(cursor.getString(8));
                 }
+                //不確定會不會因為timelimit出事
 
                 Toast toast=Toast.makeText(context,"well done!",Toast.LENGTH_SHORT);
                 toast.show();
@@ -336,7 +371,7 @@ public class GoodAdapter extends RecyclerView.Adapter<GoodAdapter.DataViewHolder
             //oh YES :(
 
             //刷新
-            //notifyDataSetChanged();
+            notifyDataSetChanged();
 
         }
     }

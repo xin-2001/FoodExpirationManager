@@ -104,6 +104,7 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(MainActivity.this,listPageActivity.class);
+                i.putExtra("whichclass","a");
                 startActivity(i);
                 finish();
             }
@@ -204,7 +205,7 @@ public class MainActivity extends Activity {
 
     void storeDataToArrays(){
         //sql select
-        Cursor cursor = DB.selectData(2);
+        Cursor cursor = DB.selectData(2,"");
         if (cursor.getCount() == 0){
             Toast.makeText(this,"no 7 days limit",Toast.LENGTH_SHORT).show();
         }else{
