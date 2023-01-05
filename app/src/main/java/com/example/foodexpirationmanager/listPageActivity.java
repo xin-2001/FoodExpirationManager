@@ -215,7 +215,7 @@ public class listPageActivity extends Activity {
         String debug="";
 
         if(Objects.equals(tag, "NULL")){
-            part1 = "name ='" + name + "' ";
+            part1 = "name LIKE '%" + name + "%' ";
             p=p+1;
             debug = debug +"z";
         }
