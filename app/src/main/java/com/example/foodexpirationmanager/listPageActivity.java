@@ -85,14 +85,14 @@ public class listPageActivity extends Activity {
         whichclass=intent.getStringExtra("whichclass");
         LIMIT=intent.getStringExtra("timelimit");
         String X = TAG+NAME+whichclass+LIMIT;
-        Toast toast=Toast.makeText(getApplicationContext(),"FOT"+X,Toast.LENGTH_SHORT);
-        toast.show();
+        //Toast toast=Toast.makeText(getApplicationContext(),"FOT"+X,Toast.LENGTH_SHORT);
+        //toast.show();
 
         if(X!="nullnull-1"){
             SQL = sqlMaker(TAG,NAME,whichclass,LIMIT);
         }
-        toast=Toast.makeText(getApplicationContext(),SQL,Toast.LENGTH_SHORT);
-        toast.show();
+        //toast=Toast.makeText(getApplicationContext(),SQL,Toast.LENGTH_SHORT);
+        //toast.show();
 
 
 
@@ -313,7 +313,7 @@ public class listPageActivity extends Activity {
             debug=debug+"h";
         }
 
-        Toast.makeText(this,debug,Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,debug,Toast.LENGTH_SHORT).show();
 
 
         SQL3 = "SELECT * , julianday(expiration) - julianday(date('now','start of day')) AS timelimit"
@@ -362,7 +362,7 @@ public class listPageActivity extends Activity {
             cursor = DB.selectData(1, "");
         }
         if (cursor.getCount() == 0){
-            Toast.makeText(this,"Failed>:(",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Failed>:(",Toast.LENGTH_SHORT).show();
         }else{
             //ID,objType,name,tag,buyDate,expiration,num,ps,archived
             while(cursor.moveToNext()){

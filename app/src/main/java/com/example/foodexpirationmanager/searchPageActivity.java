@@ -274,8 +274,8 @@ public class searchPageActivity extends Activity {
 
 
 
-                Toast toast=Toast.makeText(getApplicationContext(),"TAGIS "+tag +"NAMEIS "+name+"WCIS "+whichclass+"TLIS "+timelimit,Toast.LENGTH_SHORT);
-                toast.show();
+                //Toast toast=Toast.makeText(getApplicationContext(),"TAGIS "+tag +"NAMEIS "+name+"WCIS "+whichclass+"TLIS "+timelimit,Toast.LENGTH_SHORT);
+                //toast.show();
 
                 startActivity(i);
                 finish();
