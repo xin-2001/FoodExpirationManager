@@ -62,6 +62,7 @@ public class formPageActivity extends Activity {
             public void onClick(View view) {
                 Intent i=new Intent(formPageActivity.this,listPageActivity.class);
                 i.putExtra("whichclass","a");
+                i.putExtra("timelimit","-1");
                 startActivity(i);
                 finish();
             }

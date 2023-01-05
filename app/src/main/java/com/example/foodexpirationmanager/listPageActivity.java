@@ -285,6 +285,7 @@ public class listPageActivity extends Activity {
             debug = debug+"x";
         }
 
+
         if (timelimit.equals("0")){
             part3 = "timelimit <= 0";
             p=p+1;
