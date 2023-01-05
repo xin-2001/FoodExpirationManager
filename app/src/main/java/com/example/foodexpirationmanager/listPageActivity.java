@@ -224,7 +224,7 @@ public class listPageActivity extends Activity {
             p=p+1;
             debug = debug +"z";
         }
-        if(!whichclass.isEmpty()) {
+        if(whichclass!=null) {
             if (whichclass.indexOf("0") != -1) {
                 p_2 = p_2 + 1;
                 x = "objType = 'drink'";
@@ -286,31 +286,37 @@ public class listPageActivity extends Activity {
             debug = debug+"x";
         }
 
-
-        if (timelimit.equals("0")){
-            part3 = "timelimit <= 0";
-            p=p+1;
-            debug=debug+"h";
-        }if (timelimit.equals("5")){
-            part3 = "timelimit <= 5";
-            p=p+1;
-            debug=debug+"h";
-        }if (timelimit.equals("7")){
-            part3 = "timelimit <= 7";
-            p=p+1;
-            debug=debug+"h";
-        }if (timelimit.equals("14")){
-            part3 = "timelimit <= 14";
-            p=p+1;
-            debug=debug+"h";
-        }if (timelimit.equals("30")){
-            part3 = "timelimit <= 30";
-            p=p+1;
-            debug=debug+"h";
-        }if (timelimit.equals("60")){
-            part3 = "timelimit <= 60";
-            p=p+1;
-            debug=debug+"h";
+        if(timelimit!=null) {
+            if (timelimit.equals("0")) {
+                part3 = "timelimit <= 0";
+                p = p + 1;
+                debug = debug + "h";
+            }
+            if (timelimit.equals("5")) {
+                part3 = "timelimit <= 5";
+                p = p + 1;
+                debug = debug + "h";
+            }
+            if (timelimit.equals("7")) {
+                part3 = "timelimit <= 7";
+                p = p + 1;
+                debug = debug + "h";
+            }
+            if (timelimit.equals("14")) {
+                part3 = "timelimit <= 14";
+                p = p + 1;
+                debug = debug + "h";
+            }
+            if (timelimit.equals("30")) {
+                part3 = "timelimit <= 30";
+                p = p + 1;
+                debug = debug + "h";
+            }
+            if (timelimit.equals("60")) {
+                part3 = "timelimit <= 60";
+                p = p + 1;
+                debug = debug + "h";
+            }
         }
 
         Toast.makeText(this,debug,Toast.LENGTH_SHORT).show();
