@@ -317,7 +317,7 @@ public class listPageActivity extends Activity {
                 + " WHERE "
                 ;
         if(p==2){
-            SQL3 = SQL3 + part1 + " OR " + part2 + " OR " +part3;
+            SQL3 = SQL3 + part1 + " OR (" + part2 + " AND " +part3 +")";
         }
         if(p==1){
             if(debug.indexOf('x') != -1){
@@ -328,7 +328,7 @@ public class listPageActivity extends Activity {
                     SQL3 = SQL3 + part1 + " OR " + part3;//part1+part3
                 }
                 else{
-                    SQL3 = SQL3 + part2 + " OR " + part3;//part2+part3
+                    SQL3 = SQL3 + part2 + " AND " + part3;//part2+part3
                 }
             }
         }
